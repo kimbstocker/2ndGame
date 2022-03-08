@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">2ndGame</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Top seller</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Community</a>
+      </li>
+    </ul>
+   
+  </div>
+
+    <div>
+        <ul class="nav justify-content-end">
+            <li class="nav-item active">
+           
+            <%if user_signed_in?%>
+                
+                <li class="nav-item">
+                    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"%>
+                </li>
+            <%else%>
+                <li class="nav-item">
+                    <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
+                </li>
+            <%end%>
+
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown link
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">My listings</a>
+                        <a class="dropdown-item" href="#">My orders</a>
+                        <a class="dropdown-item" href="#">My favourites</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Account Settings</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Favourite</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Cart</a>
+            </li>
+           
+        </ul>
+    </div>
+</nav>
