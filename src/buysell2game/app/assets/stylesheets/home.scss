@@ -5,3 +5,23 @@
     max-width: 90%;
     max-height: 90%;
 }
+
+.footer-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-top: 0.08rem solid grey;
+    margin-top: 2rem;
+    padding: 2rem;
+    .footer-links {
+        padding: 1rem;
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
