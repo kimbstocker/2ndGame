@@ -15,18 +15,18 @@
       <li class="nav-item">
         <div class="dropdown">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Shop by Category
+            Category
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Classic</a></li>
-            <li><a class="dropdown-item" href="#">Family</a></li>
-            <li><a class="dropdown-item" href="#">Strategy</a></li>
-            <li><a class="dropdown-item" href="#">Fantasy</a></li>
-            <li><a class="dropdown-item" href="#">Puzzles</a></li>
-            <li><a class="dropdown-item" href="#">Others</a></li>
-
-
+            <li><%=link_to "Classic", listings_path("classic"), class: "dropdown-item"%></li>
+            <li><%=link_to "Family", listings_path("family"), class: "dropdown-item"%></li>
+            <li><%=link_to "Strategy", listings_path("strategy"), class: "dropdown-item"%></li>
+            <li><%=link_to "Fantasy", listings_path("fantasy"), class: "dropdown-item"%></li>
+            <li><%=link_to "Puzzles", listings_path("puzzles"), class: "dropdown-item"%></li>
+            <li><%=link_to "Others", listings_path("others"), class: "dropdown-item"%></li>
+            <div class="dropdown-divider"></div>
+            <li><%=link_to "Shop all", listings_path("all"), class: "dropdown-item"%></li>
 
           </ul>
         </div>
