@@ -9,7 +9,9 @@
 
             <hr class="my-4">
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Buy</a>
+                <%# <a class="btn btn-primary btn-lg" href="#" role="button">Buy</a> %>
+                <%=link_to "Buy", listings_path("all"), class: "btn btn-primary btn-lg"%>
+
                 <a class="btn btn-primary btn-lg" href="#" role="button">Sell</a>
             </p>
 
@@ -28,7 +30,7 @@
                 
                 <%= image_tag "classic.jpg", alt: "a set out chess board"%>
                 <div class="card-body">
-                    <%=link_to "Classic games", listings_path("classic"), class: "btn btn-primary"%></a>
+                    <%=link_to "Classic games", listings_path("classic"), class: "btn btn-primary"%>
                 </div>
             </div>
         </div>
@@ -37,7 +39,7 @@
                 
                 <%= image_tag "family-game.jpg", alt: "feeding hippo family game"%>
                 <div class="card-body">
-                    <%=link_to "Family games", listings_path("family"), class: "btn btn-primary"%></a>
+                    <%=link_to "Family games", listings_path("family"), class: "btn btn-primary"%>
                 </div>
             </div>
         </div>
@@ -46,7 +48,7 @@
                 
                 <%= image_tag "hero-image.jpg",atl: "dungeon and dragon board game"%>
                 <div class="card-body">
-                   <%=link_to "Fantasy games", listings_path("fantasy"), class: "btn btn-primary"%></a>
+                   <%=link_to "Fantasy games", listings_path("fantasy"), class: "btn btn-primary"%>
 
                 </div>
             </div>
@@ -64,7 +66,7 @@
                 
                 <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
                 <div class="card-body">
-                    <%=link_to "Strategy games", listings_path("strategy"), class: "btn btn-primary"%></a>
+                    <%=link_to "Strategy games", listings_path("strategy"), class: "btn btn-primary"%>
                 </div>
             </div>
         </div>
@@ -73,7 +75,7 @@
                 
                 <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
                 <div class="card-body">
-                    <%=link_to "Puzzles games", listings_path("puzzles"), class: "btn btn-primary"%></a>
+                    <%=link_to "Puzzles games", listings_path("puzzles"), class: "btn btn-primary"%>
                 </div>
             </div>
         </div>
@@ -83,7 +85,7 @@
                 
                 <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
                 <div class="card-body">
-                    <%=link_to "Others games", listings_path("others"), class: "btn btn-primary"%></a>
+                    <%=link_to "Others games", listings_path("others"), class: "btn btn-primary"%>
                 </div>
             </div>
         </div>
