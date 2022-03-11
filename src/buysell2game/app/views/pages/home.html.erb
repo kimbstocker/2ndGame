@@ -21,48 +21,72 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-3">
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+
+        <div class="col-md-4">
             <div class="card" style="width: 18rem;">
                 
                 <%= image_tag "classic.jpg", alt: "a set out chess board"%>
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary">Classic games</a>
+                    <%=link_to "Classic games", listings_path("classic"), class: "btn btn-primary"%></a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
         <div class="card" style="width: 18rem;">
                 
                 <%= image_tag "family-game.jpg", alt: "feeding hippo family game"%>
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary">Family games</a>
+                    <%=link_to "Family games", listings_path("family"), class: "btn btn-primary"%></a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
         <div class="card" style="width: 18rem;">
                 
                 <%= image_tag "hero-image.jpg",atl: "dungeon and dragon board game"%>
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary">Fantasy games</a>
+                   <%=link_to "Fantasy games", listings_path("fantasy"), class: "btn btn-primary"%></a>
+
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-        <div class="card" style="width: 18rem;">
-                
-                <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
-                <div class="card-body">
-                    <a href="#" class="btn btn-primary">Strategy games</a>
-                </div>
-            </div>
-        </div>
+        
 
 
     </div>
 
-    
-  
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                
+                <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
+                <div class="card-body">
+                    <%=link_to "Strategy games", listings_path("strategy"), class: "btn btn-primary"%></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                
+                <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
+                <div class="card-body">
+                    <%=link_to "Puzzles games", listings_path("puzzles"), class: "btn btn-primary"%></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                
+                <%= image_tag "strategy-game.jpg",atl: "little human settling around the world board game"%>
+                <div class="card-body">
+                    <%=link_to "Others games", listings_path("others"), class: "btn btn-primary"%></a>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </div>

@@ -1,0 +1,32 @@
+
+<h1 class="display-4"><%="#{params[:id]}".capitalize%></h1>
+<section class="container">
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+
+    <%@listings.each do |listing|%>
+    <div class="col md-4">
+        <div class="card" style="width: 18rem;">
+
+                <%if listing.picture.attached?%>
+                    <%=image_tag listing.picture, alt: listing.listing_name, class:"card-img top"%>
+                <%else%>
+                    <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"thumbnail card-img top"%>
+                <%end%>
+            
+            <div class="card-body ">
+
+            <h4 class="card-title"><%=listing.listing_name%></h4>
+            <h5><%=format_price(listing.price)%></h5>
+            <p class="card-text"><%=listing.description%></p>
+        </div>
+       
+        <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-primary">Add to cart</a>
+            <%=link_to "More details", listing_path(listing.id), class: "card-link"%></a>
+            
+        </div>
+    </div>
+    <%end%>
+
+    </div>
+</section>
