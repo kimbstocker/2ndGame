@@ -14,7 +14,7 @@
       </li>
       <li class="nav-item">
         <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             Category
           </a>
 
@@ -59,8 +59,8 @@
             </li>
             <li class="nav-item dropdown">
                 <div class="dropdown">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    Users
+                  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= image_tag "user.jpg", alt: "a human shape", class: "nav-icon-image"%>
                   </a>
 
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -74,10 +74,10 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Favourite</a>
+              <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Cart</a>
+              <a class="nav-link" href="#"><%= image_tag "cart.jpg", alt: "a shopping cart", class: "nav-icon-image"%></a>
             </li>
            
         </ul>
