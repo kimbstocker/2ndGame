@@ -27,6 +27,8 @@ class ListingsController < ApplicationController
       @listings = Listing.where(category_id: 5)
     when "others"
       @listings = Listing.where(category_id: 6)
+    when "#{current_user.id}"
+      @listings = current_user.listings
     end
 
   end

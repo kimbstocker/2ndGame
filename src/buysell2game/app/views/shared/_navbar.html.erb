@@ -43,36 +43,37 @@
 
     <div>
         <ul class="nav justify-content-end">
-            <li class="nav-item active">
+
+          <li class="nav-item active">
            
             <%if user_signed_in?%>
-                
-                <li class="nav-item">
-                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"%>
-                </li>
-            <%else%>
-                <li class="nav-item">
-                    <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
-                </li>
-            <%end%>
 
-            </li>
-            <li class="nav-item dropdown">
+              <li class="nav-item">
+                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"%>
+              </li>
+            
+              <li class="nav-item dropdown">
                 <div class="dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     <%= image_tag "user.jpg", alt: "a human shape", class: "nav-icon-image"%>
                   </a>
 
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">My listings</a></li>
+                    <li><%=link_to "My listings", listings_path("#{current_user.id}"), class: "dropdown-item"%></li>
                     <li><a class="dropdown-item" href="#">My orders</a></li>
                     <li><a class="dropdown-item" href="#">My favourites</a></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="#">Account Settings</a></li>
-
                   </ul>
                 </div>
-            </li>
+              </li>
+            <%else%>
+              <li class="nav-item">
+                  <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
+              </li>
+            <%end%>
+          </li>
+
             <li class="nav-item">
               <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
             </li>
