@@ -1,8 +1,9 @@
 
-<h1 class="display-4"><%="#{params[:id]}".capitalize%></h1>
+<h2 class="display-4"><%="#{params[:id]}".capitalize + " Board Games" %></h2>
 <section class="container">
     <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
 
+    <%# Create an ecommerce card for each board game in the category (filtered by the controller method index) %>
     <%@listings.each do |listing|%>
     <div class="col md-4">
         <div class="card" style="width: 18rem;">

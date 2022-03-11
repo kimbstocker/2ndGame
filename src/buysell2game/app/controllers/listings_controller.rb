@@ -9,6 +9,10 @@ class ListingsController < ApplicationController
 
   def index
 
+    # filter the listings by category for "shop by category" function. 
+    # The params[:id] is passed in from the link tags "listings_path("puzzles")" in the home.html.erb page and navbar.
+    # Only navbar will have the shopping "all" option
+
     case params[:id]
     when "all"
       @listings = Listing.all
