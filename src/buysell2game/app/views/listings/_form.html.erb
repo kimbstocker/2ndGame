@@ -12,13 +12,20 @@
     
     <div class='form-group mb-3'> 
         <%=f.label :category_id, class: "form-label"%>
-        <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, class: "form-select"%>
+        <%=f.select :category_id, @categories.map {|c| [c.name.capitalize, c.id]}, class: "form-select"%>
     </div>
     
     <h5 class="mb-3">Condition</h5>
     <%@conditions.each do |option|%>
         <%=f.radio_button :condition, option, class:"mr-2"%>
-        <%=f.label :condition, format_condition(option), class: "form-label mr-1" %>
+        <%=f.label :condition, format_enum(option), class: "form-label mr-1" %>
+        
+    <%end%>
+
+    <h5 class="mb-3">Shipping method available</h5>
+    <%@shipping_methods.each do |method|%>
+        <%=f.radio_button :shipping, method, class:"mr-2"%>
+        <%=f.label :shipping, format_enum(method), class: "form-label mr-1" %>
         
     <%end%>
 
@@ -34,5 +41,8 @@
 
     <div class='actions'> 
     <%=f.submit%>
+    <input name="draft" type="submit" value="Save as draft" data-disable-with="Draft" />    
+
     </div>
+
 <%end%>

@@ -1,7 +1,7 @@
 module ListingsHelper
-    def format_condition(condition)
-       arr = condition.split("_").map do |word|
-        word.capitalize
+    def format_enum(keys)
+       arr = keys.split("_").map do |key|
+        key.capitalize
        end
        arr.join(" ")
     end 

@@ -10,7 +10,7 @@
   </div>
   <div class='sidebar col-lg-4 p-0 mx-2 d-md-block'> 
     <h1 class='mb-sm-2 mb-md-5'><%=@listing.listing_name%></h1>
-    <h4 class='text-muted'>Condition: <%=format_condition(@listing.condition)%></h4>
+    <h4 class='text-muted'>Condition: <%=format_enum(@listing.condition)%></h4>
     <h5 class='text-muted'>Price: <%=format_price(@listing.price)%></h5>
     <p><%=@listing.description%></p>
     
