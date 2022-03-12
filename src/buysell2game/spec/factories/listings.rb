@@ -10,3 +10,8 @@ FactoryBot.define do
     shipping { 1 }
   end
 end
+
+
+
+# // <input name="listing_status" type="submit" value="listed" data-disable-with="listed" />
+# // <input name="listing_status" type="submit" value="draft" data-disable-with="draft" />    

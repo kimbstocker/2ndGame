@@ -47,6 +47,9 @@ class ListingsController < ApplicationController
 
   def create 
     @listing = current_user.listings.new(listing_params)
+
+    update_listing_status
+
     if @listing.save 
       redirect_to @listing, notice: "Listing successfully created"
     else
@@ -62,6 +65,8 @@ class ListingsController < ApplicationController
 
   def update 
     @listing.update(listing_params)
+    update_listing_status
+
     if @listing.save 
       redirect_to @listing, notice: "Listing successfully updated"
     else
@@ -75,10 +80,24 @@ class ListingsController < ApplicationController
       redirect_to listings_category_path("#{@listing.user_id}"), notice: "Listing succesfully deleted"
   end
 
+
+
+  def update_listing_status
+    case params[:listing_status]
+    when "Create Listing" || "Update Listing"
+      @listing.update(listing_status: 2)
+    when "Save as draft"
+      @listing.update(listing_status: 1)
+    end
+
+  end
+
+
   private
     def listing_params
       params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
     end
+
 
     def authorize_user 
       if @listing.user_id != current_user.id
