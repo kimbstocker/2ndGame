@@ -1,3 +1,6 @@
-<h1> Edit Listing </h1>
+<h1> Edit listing - <%= @listing.listing_name%></h1>
+<p>*Kindly note, by clicking <strong>"Update Listing"</strong> button, your listing will be <strong>updated</strong> and <strong>listed</strong></p>
+<p>*If you have not listed your item and only want to update the draft, please click <strong>"Save as draft"</strong></p>
+
 <%= render "form"%>
-<%link_to "Home", root_path%>
+<%link_to listings_category_path("#{current_user.id}")%>
