@@ -51,7 +51,7 @@ class ListingsController < ApplicationController
       redirect_to @listing, notice: "Listing successfully created"
     else
       set_form_vars
-      render "new", notice: "Some errors"
+      render "new", notice: "An error has occurred, please try again"
     end 
   end 
 
@@ -66,18 +66,18 @@ class ListingsController < ApplicationController
       redirect_to @listing, notice: "Listing successfully updated"
     else
       set_form_vars
-      render "edit", notice: "Some errors"
+      render "edit", notice: "An error has occurred, please try again"
     end 
   end 
 
   def destroy 
       @listing.destroy
-      redirect_to listings_path, notice: "Succesfully deleted"
+      redirect_to listings_category_path("#{@listing.user_id}"), notice: "Listing succesfully deleted"
   end
 
   private
     def listing_params
-      params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture)
+      params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
     end
 
     def authorize_user 
