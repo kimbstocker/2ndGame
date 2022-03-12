@@ -1,0 +1,38 @@
+<%=form_with model: @listing, local: true do |f|%>
+  
+    <div class='form-group mb-3'> 
+        <%=f.label :listing_name, class: "form-label"%>
+        <%=f.text_field :listing_name%>
+    </div>
+    
+    <div class='form-group mb-3'> 
+        <%=f.label :price, class: "form-label"%>
+        <%=f.number_field :price%>
+    </div>
+    
+    <div class='form-group mb-3'> 
+        <%=f.label :category_id, class: "form-label"%>
+        <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, class: "form-select"%>
+    </div>
+    
+    <h5 class="mb-3">Condition</h5>
+    <%@conditions.each do |option|%>
+        <%=f.radio_button :condition, option, class:"mr-2"%>
+        <%=f.label :condition, format_condition(option), class: "form-label mr-1" %>
+        
+    <%end%>
+
+    <div class='form-group mb-3'> 
+        <%=f.label :picture, class: "form-label"%>
+        <%=f.file_field :picture, accept: "image/png,image/jpg,image/jpeg", class: "form-select"%>
+    </div>
+
+    <div class='form-group mb-3'> 
+        <%=f.label :description, class: "form-label"%>
+        <%=f.text_area :description, class: "form-control"%>
+    </div>
+
+    <div class='actions'> 
+    <%=f.submit%>
+    </div>
+<%end%>

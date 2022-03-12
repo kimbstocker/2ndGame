@@ -20,14 +20,14 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><%=link_to "Classic", listings_path("classic"), class: "dropdown-item"%></li>
-            <li><%=link_to "Family", listings_path("family"), class: "dropdown-item"%></li>
-            <li><%=link_to "Strategy", listings_path("strategy"), class: "dropdown-item"%></li>
-            <li><%=link_to "Fantasy", listings_path("fantasy"), class: "dropdown-item"%></li>
-            <li><%=link_to "Puzzles", listings_path("puzzles"), class: "dropdown-item"%></li>
-            <li><%=link_to "Others", listings_path("others"), class: "dropdown-item"%></li>
+            <li><%=link_to "Classic", listings_category_path("classic"), class: "dropdown-item"%></li>
+            <li><%=link_to "Family", listings_category_path("family"), class: "dropdown-item"%></li>
+            <li><%=link_to "Strategy", listings_category_path("strategy"), class: "dropdown-item"%></li>
+            <li><%=link_to "Fantasy", listings_category_path("fantasy"), class: "dropdown-item"%></li>
+            <li><%=link_to "Puzzles", listings_category_path("puzzles"), class: "dropdown-item"%></li>
+            <li><%=link_to "Others", listings_category_path("others"), class: "dropdown-item"%></li>
             <div class="dropdown-divider"></div>
-            <li><%=link_to "Shop all", listings_path("all"), class: "dropdown-item"%></li>
+            <li><%=link_to "Shop all", listings_category_path("all"), class: "dropdown-item"%></li>
 
           </ul>
         </div>
@@ -62,7 +62,8 @@
                   </a>
 
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><%=link_to "My listings", listings_path("#{current_user.id}"), class: "dropdown-item"%></li>
+                    <li><%=link_to "Create listing", new_listing_path, class: "dropdown-item"%></li>
+                    <li><%=link_to "My listings", listings_category_path("#{current_user.id}"), class: "dropdown-item"%></li>
                     <li><a class="dropdown-item" href="#">My orders</a></li>
                     <li><a class="dropdown-item" href="#">My favourites</a></li>
                     <div class="dropdown-divider"></div>

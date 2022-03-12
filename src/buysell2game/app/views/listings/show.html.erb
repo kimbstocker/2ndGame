@@ -1,2 +1,56 @@
-<h1>Listings#show</h1>
-<p>Find me in app/views/listings/show.html.erb</p>
+<section class='container d-flex flex-column flex-md-row px-2 my-2 my-md-5'>
+  <div class='content col-12 col-md-7 col-lg-8 p-0 pr-md-3'>
+    <div class='col-12 p-0 main-preview mb-4'>
+        <%if @listing.picture.attached?%>
+            <%=image_tag @listing.picture, alt: @listing.listing_name, class:"card-img top"%>
+        <%else%>
+            <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:""%>
+        <%end%>
+    </div>
+  </div>
+  <div class='sidebar col-lg-4 p-0 mx-2 d-md-block'> 
+    <h1 class='mb-sm-2 mb-md-5'><%=@listing.listing_name%></h1>
+    <h4 class='text-muted'>Condition: <%=format_condition(@listing.condition)%></h4>
+    <h5 class='text-muted'>Price: <%=format_price(@listing.price)%></h5>
+    <p><%=@listing.description%></p>
+    
+    
+
+     <div class='container'>
+    
+    
+    
+    <%if current_user && current_user.id == @listing.user_id%>
+      <div class='d-flex justify-content-equally'>
+        <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-warning mr-2" %>
+        <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+      </div>
+    <%end%>
+  </div>
+  </div>
+ 
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

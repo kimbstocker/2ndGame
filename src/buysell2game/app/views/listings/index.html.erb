@@ -31,7 +31,7 @@
                 <%if user_signed_in? && current_user.id == listing.user_id%>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="#" class="btn btn-primary">Update</a></li>
+                        <li class="list-group-item"><%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%></li>
                         <li class="list-group-item"><a href="#" class="btn btn-primary">Attach shipping receipt</a></li>
                 
                     </ul>

@@ -1,6 +1,9 @@
 module ListingsHelper
     def format_condition(condition)
-       condition.capitalize
+       arr = condition.split("_").map do |word|
+        word.capitalize
+       end
+       arr.join(" ")
     end 
 
     def format_category(category)
