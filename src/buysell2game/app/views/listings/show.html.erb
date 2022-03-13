@@ -1,10 +1,12 @@
 <section class='container d-flex flex-column flex-md-row px-2 my-2 my-md-5'>
   <div class='content col-12 col-md-7 col-lg-8 p-0 pr-md-3'>
     <div class='col-12 p-0 main-preview mb-4'>
-        <%if @listing.picture.attached?%>
-            <%=image_tag @listing.picture, alt: @listing.listing_name, class:"card-img top"%>
-        <%else%>
+        <%if !@listing.picture.attached?%>
             <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:""%>
+
+        <%else%>
+            <%=image_tag @listing.picture, alt: @listing.listing_name, class:"card-img top"%>
+
         <%end%>
     </div>
   </div>

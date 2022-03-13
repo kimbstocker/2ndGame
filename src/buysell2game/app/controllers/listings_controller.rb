@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :set_listing, only: [:edit, :update, :destroy]
   # Below before action ensure unauthorised user cannot use URL to temper with the listing 
   before_action :authorize_user, only: [:edit, :update, :destroy]
   before_action :set_form_vars, only: [:new, :edit]
@@ -11,23 +11,23 @@ class ListingsController < ApplicationController
   def index
 
     # Filter the listings by category for "shop by category" function. 
-    # The params[:id] (with the listing category names) is passed in from the link tags eg. "listings_path("puzzles")" in the view home.html.erb page and navbar.
-
+    # The params[:id] (with the listing category names) is passed in from the link tags eg. "listings_category_path("puzzles")" in the view home.html.erb page and navbar.
+    # Only listed listings are showed to users. For those listing that have listing_status others than "listed" such as "draft", "sold" or "archived", only their owners can see those in their "my listings" page.
     case params[:id]
     when "all"
-      @listings = Listing.all
+      @listings = Listing.all.where(listing_status: "listed")
     when "family"
-      @listings = Listing.where(category_id: 1)
+      @listings = Listing.where(category_id: 1, listing_status: "listed")
     when "strategy"
-      @listings = Listing.where(category_id: 2)
+      @listings = Listing.where(category_id: 2, listing_status: "listed")
     when "classic"
-      @listings = Listing.where(category_id: 3)
+      @listings = Listing.where(category_id: 3, listing_status: "listed")
     when "puzzles"
-      @listings = Listing.where(category_id: 4)
+      @listings = Listing.where(category_id: 4, listing_status: "listed")
     when "fantasy"
-      @listings = Listing.where(category_id: 5)
+      @listings = Listing.where(category_id: 5, listing_status: "listed")
     when "others"
-      @listings = Listing.where(category_id: 6)
+      @listings = Listing.where(category_id: 6, listing_status: "listed")
     when "#{current_user.id}"
       @listings = current_user.listings
     
@@ -36,7 +36,17 @@ class ListingsController < ApplicationController
   end
 
   def show
+    
+    @listing = Listing.find(params[:id])
 
+    # Users can only view listed listings. If a listing is not at "listed" status, only the owner of the listing can view it
+    if @listing.listing_status != "listed"
+      if !current_user || current_user.id != Listing.find(params[:id]).user_id
+        flash[:alert] = "Unauthorised access"
+        redirect_to root_path
+      end        
+     
+    end
 
   end
 
@@ -102,7 +112,7 @@ class ListingsController < ApplicationController
     def authorize_user 
       if @listing.user_id != current_user.id
         flash[:alert] = "Unauthorised access"
-        redirect_to listings_path
+        redirect_to root_path
       end 
     end 
 
