@@ -94,7 +94,9 @@ class ListingsController < ApplicationController
 
   def update_listing_status
     case params[:listing_status]
-    when "Create Listing" || "Update Listing"
+    when "Create Listing"
+      @listing.update(listing_status: 2)
+    when "Update Listing"
       @listing.update(listing_status: 2)
     when "Save as draft"
       @listing.update(listing_status: 1)
