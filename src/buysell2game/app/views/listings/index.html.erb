@@ -7,48 +7,49 @@
 <%end%>
 <section class="container">
     <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
-
+            
     <%# Create ecommerce cards for each listing in the category (filtered by the controller method index) %>
     <%@listings.each do |listing|%>
         <div class="col md-4">
             <div class="card" style="width: 18rem;">
-
+                <div class="card-img top">
                     <%if listing.picture.attached?%>
                         <%=image_tag listing.picture, alt: listing.listing_name, class:"card-img top"%>
                     <%else%>
                         <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"thumbnail card-img top"%>
                     <%end%>
-                
+                </div>
                 <div class="card-body ">
 
-                <h4 class="card-title"><%=listing.listing_name%></h4>
-                <h5><%=format_price(listing.price)%></h5>
-                <p class="card-text"><%=listing.description%></p>
-            </div>
+                    <h4 class="card-title"><%=listing.listing_name%></h4>
+                    <h5><%=format_price(listing.price)%></h5>
+                </div>
+            
         
-            <div class="d-flex justify-content-between">
+                <div class="card-body">
 
-                <%if user_signed_in? && current_user.id == listing.user_id%>
-                    <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                    <div>
+                    <%if user_signed_in? && current_user.id == listing.user_id%>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-end">
 
-                        <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
-                        <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>
-                    </div>
-                    </li>
-                        <li class="list-group-item"><a href="#" class="btn btn-primary">Attach shipping receipt</a></li>
-                
-                    </ul>
-                                       
-                
-                <%else%>
-
-                    <a href="#" class="btn btn-primary">Add to cart</a>
-                    <%=link_to "More details", listing_path(listing.id), class: "card-link"%>
-             
-                                            
-                <%end%>
+                                    <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
+                                    <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><a href="#" class="btn btn-primary">Attach shipping receipt</a></li>
+                    
+                        </ul>
+                                        
+                    
+                    <%else%>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            <%=link_to "More details", listing_path(listing.id), class: "card-link"%>
+                        </div>
+                                                
+                    <%end%>
+                </div>
             </div>
         </div>
     <%end%>
