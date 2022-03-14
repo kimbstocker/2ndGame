@@ -92,16 +92,12 @@ class ListingsController < ApplicationController
   end
 
 
-
-
-
-
   private
     def listing_params
       params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
     end
 
-
+    #change listing status once the form is submitted 
     def update_listing_status
       case params[:listing_status]
       when "Create Listing"

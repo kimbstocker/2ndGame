@@ -44,7 +44,13 @@
                     
                     <%else%>
                         <div class="d-flex justify-content-between align-items-end">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
+                                <% if user_signed_in? %>
+                                    <%= button_to "Add to cart", {:controller => "orders", :action => "create", :user_id => current_user.id} , :method=>:post %>
+                                <% else %>
+
+                                <%# CHECK Need to fix this as this redirect user to sign in but did not create the order for the user once signed in %>
+                                    <%= link_to "Add to cart", new_user_session_path, class: "nav-link"%>
+                                <%end%>
                             <%=link_to "More details", listing_path(listing.id), class: "card-link"%>
                         </div>
                                                 

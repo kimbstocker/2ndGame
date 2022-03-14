@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   patch "listings/:id", to: "listings#update"
   delete "listings/:id", to: "listings#destroy", as: "delete_listing"
   get "listings/:id/edit", to: "listings#edit", as: "edit_listing"
+  post "orders", to: "orders#create"
+  get "orders/new", to: "orders#new", as: "new_order"
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
