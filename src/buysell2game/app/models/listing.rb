@@ -7,6 +7,7 @@ class Listing < ApplicationRecord
   enum shipping: {post_only: 1, pick_up_only: 2, aus_post_or_pick_up: 3}
 
   has_one_attached :picture
+  has_one :item
 
 end
 

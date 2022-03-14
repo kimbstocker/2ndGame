@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_12_105943) do
+ActiveRecord::Schema.define(version: 2022_03_14_045123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 2022_03_12_105943) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "items", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "order_id", null: false
+    t.float "price"
+    t.boolean "sold", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["listing_id"], name: "index_items_on_listing_id"
+    t.index ["order_id"], name: "index_items_on_order_id"
+  end
+
   create_table "listings", force: :cascade do |t|
     t.string "listing_name", null: false
     t.integer "condition", null: false
@@ -62,6 +73,15 @@ ActiveRecord::Schema.define(version: 2022_03_12_105943) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_listings_on_category_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.float "total"
+    t.string "order_status", default: "pending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,6 +98,9 @@ ActiveRecord::Schema.define(version: 2022_03_12_105943) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "items", "listings"
+  add_foreign_key "items", "orders"
   add_foreign_key "listings", "categories"
   add_foreign_key "listings", "users"
+  add_foreign_key "orders", "users"
 end
