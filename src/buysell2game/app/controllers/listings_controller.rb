@@ -93,17 +93,7 @@ class ListingsController < ApplicationController
 
 
 
-  def update_listing_status
-    case params[:listing_status]
-    when "Create Listing"
-      @listing.update(listing_status: 2)
-    when "Update Listing"
-      @listing.update(listing_status: 2)
-    when "Save as draft"
-      @listing.update(listing_status: 1)
-    end
 
-  end
 
 
   private
@@ -111,6 +101,18 @@ class ListingsController < ApplicationController
       params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
     end
 
+
+    def update_listing_status
+      case params[:listing_status]
+      when "Create Listing"
+        @listing.update(listing_status: 2)
+      when "Update Listing"
+        @listing.update(listing_status: 2)
+      when "Save as draft"
+        @listing.update(listing_status: 1)
+      end
+  
+    end
 
     def authorize_user 
       if @listing.user_id != current_user.id
