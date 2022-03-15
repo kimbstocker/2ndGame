@@ -31,9 +31,11 @@
                     <%if user_signed_in? && current_user.id == listing.user_id%>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
+                                    <h5>Listing status: <%=listing.listing_status.capitalize%></h5>
                                 <div class="d-flex justify-content-between align-items-end">
-
-                                    <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
+                                    <%if listing.listing_status != "sold"%>
+                                        <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
+                                    <%end%>
                                     <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>
                                 </div>
                             </li>

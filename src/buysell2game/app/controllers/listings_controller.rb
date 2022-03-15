@@ -72,9 +72,14 @@ class ListingsController < ApplicationController
 
 
   def edit 
+    #Only listing with status "draft" or "listed" can be edited
+    if @listing.listing_status == "sold" || @listing.listing_status == "archived"
+      flash[:alert] = "This listing details can no longer be changed"
+    end
   end 
 
   def update 
+       
     @listing.update(listing_params)
     update_listing_status
 
@@ -84,6 +89,7 @@ class ListingsController < ApplicationController
       set_form_vars
       render "edit", notice: "An error has occurred, please try again"
     end 
+    
   end 
 
   def destroy 
