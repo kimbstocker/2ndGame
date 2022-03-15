@@ -71,7 +71,6 @@ class ListingsController < ApplicationController
 
 
   def edit 
-
   end 
 
   def update 

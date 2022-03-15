@@ -45,7 +45,7 @@
                     <%else%>
                         <div class="d-flex justify-content-between align-items-end">
                                 <% if user_signed_in? %>
-                                    <%= button_to "Add to cart", {:controller => "orders", :action => "create", :user_id => current_user.id} , :method=>:post %>
+                                    <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}} %>
                                 <% else %>
 
                                 <%# CHECK Need to fix this as this redirect user to sign in but did not create the order for the user once signed in %>

@@ -1,6 +1,6 @@
-<section class="container d-flex flex-column flex-md-row px-2 my-2 my-md-5">
-  <div class="content col-12 col-md-7 col-lg-8 p-0 pr-md-3">
-    <div class="col-12 p-0 main-preview mb-4">
+<section class="container d-flex flex-column flex-md-row justify-content-around px-2 my-2 my-md-5">
+  <div class="content col-12 col-md-7 col-lg-8 p-0 pr-md-1 d-flex justify-content-center">
+    <div class="col-6 p-0 main-preview mb-4">
         <%if !@listing.picture.attached?%>
             <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:""%>
 
@@ -10,13 +10,12 @@
         <%end%>
     </div>
   </div>
-  <div class="sidebar col-lg-4 p-0 mx-2 d-md-block"> 
+  <div class="d-flex sidebar col-lg-4 p-0 mx-2 d-md-block"> 
     <h1 class="mb-sm-2 mb-md-5"><%=@listing.listing_name%></h1>
-    <h3 class="text-muted">Price: <%=format_price(@listing.price)%></h3>
+    <h3 class=" d-flex text-muted">Price: <%=format_price(@listing.price)%></h3>
     <%if current_user && current_user.id == @listing.user_id%>
-        
-        <h4 class="text-muted">Listing status: <strong><%=@listing.listing_status.capitalize%></strong></h4>
-
+        <h5>Listing status: 
+        <span><strong><%=@listing.listing_status.capitalize%></strong></span></h5>
         <div class="d-flex flex-wrap justify-content-start mb-md-3">
             <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-primary mx-2" %>
             <a href="#" class="btn btn-primary">Attach shipping receipt</a>
@@ -30,8 +29,8 @@
     <h5 class="text-muted">Description:</h5>
     <p><%=@listing.description%></p>
 
-    <h5 class="text-muted">Condition: <%=format_text(@listing.condition)%></h5>
-    <h5 class="text-muted">Shipping method: <%=format_text(@listing.shipping)%></h5>
+    <h5 class="d-flex text-muted">Condition: <%=format_text(@listing.condition)%></h5>
+    <h5 class="d-flex text-muted">Shipping method: <%=format_text(@listing.shipping)%></h5>
 
     
 
