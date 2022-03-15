@@ -8,23 +8,48 @@ class OrdersController < ApplicationController
 
     def show
 
-        pending_order = current_user.orders.find_by(order_status: "pending")
-        if pending_order.items != nil
-            @items = pending_order.items.all
-        else
-            flash[:alert] = "Your cart is empty"
-            redirect_to root_path
-        end
-            
+      #Select order that has a "pending" status, should be only one as the create method has a check to make sure of it.
+      
+      @order = current_user.orders.find_by(order_status: "pending")
+      #Below is to ensure when all items are removed from Order, there wont be a Stripe error as the total below will be $0
+      if @order.items.empty?
+        flash[:alert] = "Your cart is empty"
+        redirect_to root_path
+      else
+        @items = @order.items.all
 
-        # Users can only view listed listings. If a listing is not at "listed" status, only the owner of the listing can view it
-        # if @listing.listing_status != "listed"
-        #   if !current_user || current_user.id != Listing.find(params[:id]).user_id
-        #     flash[:alert] = "Unauthorised access"
-        #     redirect_to root_path
-        #   end        
-         
-        # end
+        total_price = 0
+        @items.each do |item|
+          total_price += item.listing.price
+        end
+        
+        total_cents = (total_price*100).to_i
+
+        session = Stripe::Checkout::Session.create(
+          payment_method_types: ['card'],
+          customer_email:current_user && current_user.email, 
+          line_items: [
+              {
+                name: "Pay 2ndGame",
+                amount: total_cents, 
+                currency: 'aud',
+                quantity: 1
+              }
+            ],
+          #send metadata to Stripe and stripe send it back once payment is sucessful
+          payment_intent_data: {
+            metadata: {
+              user_id: current_user && current_user.id, 
+              order_id: @order.id
+            }
+          },
+          success_url: "#{root_url}payments/success/#{@order.id}",
+          cancel_url: root_url
+        )
+    
+        @session_id = session.id
+      
+      end
     end
 
     def new
@@ -48,7 +73,6 @@ class OrdersController < ApplicationController
         @item = @order.items.find_by(listing_id: listing.id)
       end
 
-      # TODO redirect or something
     end
 
     def edit

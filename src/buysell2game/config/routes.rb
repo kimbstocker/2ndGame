@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   post "items", to: "items#create"
   get "items/new", to: "items#new", as: "new_item"
   delete "items/:id", to: "items#destroy", as: "delete_item"
-
+  get "payments/success/:id", to: "payments#success", as: "payments_success"
+  post "payments/webhook", to: "payments#webhook"
 
 
 

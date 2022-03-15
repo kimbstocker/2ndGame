@@ -74,3 +74,5 @@ gem 'net-pop', require: false
 gem "aws-sdk-s3", "~> 1.113"
 
 gem "stripe", "~> 5.45"
+
+gem "ultrahook", "~> 1.0"
