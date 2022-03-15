@@ -10,7 +10,14 @@ class ItemsController < ApplicationController
 
     def create
 
-        @item = Item.new(listing_id: listing.id, order_id: @order.id, price: listing.price)
 
     end
+
+    def destroy
+        @item = Item.find_by(id: params[:item_id].to_i)
+        @item.destroy
+        redirect_to order_path("#{@item.order_id}"), notice: "Item succesfully removed"
+
+    end
+
 end

@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   get "listings/:id/edit", to: "listings#edit", as: "edit_listing"
   post "orders", to: "orders#create"
   get "orders/new", to: "orders#new", as: "new_order"
+  get "orders/:id", to: "orders#show", as: "order"
   post "items", to: "items#create"
   get "items/new", to: "items#new", as: "new_item"
+  delete "items/:id", to: "items#destroy", as: "delete_item"
+
+
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

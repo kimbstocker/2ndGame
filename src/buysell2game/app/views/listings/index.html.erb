@@ -10,7 +10,7 @@
             
     <%# Create ecommerce cards for each listing in the category (filtered by the controller method index) %>
     <%@listings.each do |listing|%>
-        <div class="col md-4">
+        <div class="d-flex col md-4">
             <div class="card" style="width: 18rem;">
                 <div class="card-img top">
                     <%if listing.picture.attached?%>
@@ -45,7 +45,7 @@
                     <%else%>
                         <div class="d-flex justify-content-between align-items-end">
                                 <% if user_signed_in? %>
-                                    <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}} %>
+                                    <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn btn-primary"}%>
                                 <% else %>
 
                                 <%# CHECK Need to fix this as this redirect user to sign in but did not create the order for the user once signed in %>

@@ -42,6 +42,7 @@ class ListingsController < ApplicationController
 
     # Users can only view listed listings. If a listing is not at "listed" status, only the owner of the listing can view it
     if @listing.listing_status != "listed"
+      # CHECK should use !user_sign_in? instead of !current_user?
       if !current_user || current_user.id != Listing.find(params[:id]).user_id
         flash[:alert] = "Unauthorised access"
         redirect_to root_path
