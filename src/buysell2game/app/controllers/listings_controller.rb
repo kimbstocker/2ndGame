@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_listing, only: [:edit, :update, :destroy]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy]
   # Below before action ensure unauthorised user cannot use URL to temper with the listing 
   before_action :authorize_user, only: [:edit, :update, :destroy]
   before_action :set_form_vars, only: [:new, :edit]
@@ -38,8 +38,6 @@ class ListingsController < ApplicationController
 
   def show
     
-    @listing = Listing.find(params[:id])
-
     # Users can only view listed listings. If a listing is not at "listed" status, only the owner of the listing can view it
     if @listing.listing_status != "listed"
       # CHECK should use !user_sign_in? instead of !current_user?

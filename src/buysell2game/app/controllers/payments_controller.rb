@@ -27,16 +27,21 @@ class PaymentsController < ApplicationController
         payment = Stripe::PaymentIntent.retrieve(payment_intent_id)
         pp payment
         order_id = payment.metadata.order_id
-        pp payment.charges.data[0].receipt_url
+        receipt_url = payment.charges.data[0].receipt_url
         #update order, listing and item statuses.
         order = Order.find(order_id)
         order.update(order_status: 2)
         items = order.items
+        order_total = 0
         items.each do |item|
             item.update(sold:true)
             listing = Listing.find_by(id: item.listing_id)
             listing.update(listing_status: 3)
+            #Delete all other line items that have the same listing_id. Those items would have been created by other users around same time the item/listing was purchased
+            Item.where(listing_id: listing.id, sold: false).destroy_all
+            order_total += item.price
         end
-
+        order.update(total: order_total)
+        Payment.create(order_id: order.id, payment_id: payment_intent_id, receipt_url: receipt_url)
     end 
 end

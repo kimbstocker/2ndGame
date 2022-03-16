@@ -1,24 +1,22 @@
 class OrdersController < ApplicationController
+    before_action :authenticate_user!
+    before_action :sign_in_to_order
+    before_action :set_order, only: [:index, :show, :create]
     before_action :authorize_user
-    # before_action :set_order, only: [:edit, :update, :destroy]
 
 
     def index
-      order = current_user.orders.find_by(order_status: "pending")
-      if !order
+      if !@order
         flash[:notice] = "Your cart is empty!"
         redirect_back(fallback_location: root_path)
       else
-        redirect_to order_path(order.id)
+        redirect_to order_path(@order.id)
       end
 
     end
 
     def show
 
-      #Select order that has a "pending" status, should be only one as the create method has a check to make sure of it.
-      
-      @order = current_user.orders.find_by(order_status: "pending")
       #Below is to ensure when all items are removed from Order, there wont be a Stripe error as the total below will be $0
       @items = @order.items.all
 
@@ -73,29 +71,22 @@ class OrdersController < ApplicationController
       listing = Listing.find_by(id: params[:listing_id])
 
     # Only create a new line in Orders table if there isnt already one pending.
-      if !current_user.orders.find_by(order_status: "pending")
+      if !@order
         @order = Order.create(user_id: current_user.id)
+
+      end
+      if !@order.items.find_by(listing_id: listing.id)
         @order.items.create(listing_id: listing.id, price: listing.price)
-        flash[:notice] = "Item succesfully added"
+        flash[:notice] = "Item succesfully added."
         redirect_back(fallback_location: root_path)
 
       else
-        @order = current_user.orders.find_by(order_status: "pending")
-        if !@order.items.find_by(listing_id: listing.id)
-          @order.items.create(listing_id: listing.id, price: listing.price)
-          #TODO probaly need redirect. Find a way to display message without redirecting
-          flash[:notice] = "Item succesfully added"
-          redirect_back(fallback_location: root_path)
+        flash[:alert] = "Item already added."
+        redirect_back(fallback_location: root_path)
 
-        else
-          #TODO
-          flash[:alert] = "Item already added"
-          redirect_back(fallback_location: root_path)
-
-  
-        end
 
       end
+
 
 
 
@@ -107,24 +98,32 @@ class OrdersController < ApplicationController
     # def update
     # end
 
-    # def destroy
-    # end
+    def destroy
+    end
 
-private
+  private
 
-    # def set_order
-    #     @order = Order.find(params[:id])
+  def set_order
+    @order = current_user.orders.find_by(order_status: "pending")
 
-    # end
-    
+  end
+  
 
-    def authorize_user 
-      if !user_signed_in?
-        flash[:alert] = "Please sign in or create an account to proceed!"
-        #TODO after use signed in, they're routed to root_path which is not ideal, would be good if they're routed to their previous path
-        redirect_to new_user_session_path
-      end 
+  def sign_in_to_order 
+    if !user_signed_in?
+      flash[:alert] = "Please sign in or create an account to proceed!"
+      #TODO after use signed in, they're routed to root_path which is not ideal, would be good if they're routed to their previous path
+      redirect_to new_user_session_path
     end 
+  end 
+
+
+  def authorize_user 
+    if @order && @order.user_id != current_user.id
+      flash[:alert] = "Unauthorised access"
+      redirect_back(fallback_location: root_path)
+    end 
+  end 
 
 
 
