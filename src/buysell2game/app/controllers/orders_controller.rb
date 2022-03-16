@@ -81,10 +81,10 @@ class OrdersController < ApplicationController
         if !@order.items.find_by(listing_id: listing.id)
           @order.items.create(listing_id: listing.id, price: listing.price)
           #TODO probaly need redirect. Find a way to display message without redirecting
-          # flash.now.notice = "Item succesfully added"
-        else
+          # flash.now[:notice] = "Item succesfully added"
+        # else
           #TODO
-          # flash.now.notice = "Item already added"
+          # flash.now[:notice] = "Item already added"
   
         end
 
