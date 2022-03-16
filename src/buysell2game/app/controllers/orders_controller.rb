@@ -1,14 +1,15 @@
 class OrdersController < ApplicationController
     before_action :authorize_user
-    before_action :set_order, only: [:edit, :update, :destroy]
+    # before_action :set_order, only: [:edit, :update, :destroy]
 
 
     def index
-      if !current_user.orders.find_by(order_status: "pending")
+      order = current_user.orders.find_by(order_status: "pending")
+      if !order
         flash[:notice] = "Your cart is empty!"
-        redirect_to root_path
+        redirect_back(fallback_location: root_path)
       else
-        redirect_to order_path(current_user.orders.find_by(order_status: "pending").id)
+        redirect_to order_path(order.id)
       end
 
     end
@@ -75,16 +76,22 @@ class OrdersController < ApplicationController
       if !current_user.orders.find_by(order_status: "pending")
         @order = Order.create(user_id: current_user.id)
         @order.items.create(listing_id: listing.id, price: listing.price)
+        flash[:notice] = "Item succesfully added"
+        redirect_back(fallback_location: root_path)
 
       else
         @order = current_user.orders.find_by(order_status: "pending")
         if !@order.items.find_by(listing_id: listing.id)
           @order.items.create(listing_id: listing.id, price: listing.price)
           #TODO probaly need redirect. Find a way to display message without redirecting
-          # flash.now[:notice] = "Item succesfully added"
-        # else
+          flash[:notice] = "Item succesfully added"
+          redirect_back(fallback_location: root_path)
+
+        else
           #TODO
-          # flash.now[:notice] = "Item already added"
+          flash[:alert] = "Item already added"
+          redirect_back(fallback_location: root_path)
+
   
         end
 
@@ -94,21 +101,21 @@ class OrdersController < ApplicationController
 
     end
 
-    def edit
-    end
+    # def edit
+    # end
 
-    def update
-    end
+    # def update
+    # end
 
-    def destroy
-    end
+    # def destroy
+    # end
 
 private
 
-    def set_order
-        @order = Order.find(params[:id])
+    # def set_order
+    #     @order = Order.find(params[:id])
 
-    end
+    # end
     
 
     def authorize_user 
