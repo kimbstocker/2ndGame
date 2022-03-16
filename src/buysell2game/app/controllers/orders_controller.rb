@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
     before_action :authenticate_user!
     before_action :sign_in_to_order
-    before_action :set_order, only: [:index, :show, :create]
     before_action :authorize_user
+    before_action :set_order, only: [:index, :show, :create]
 
 
     def index
@@ -119,9 +119,11 @@ class OrdersController < ApplicationController
 
 
   def authorize_user 
-    if @order && @order.user_id != current_user.id
+    order = Order.find_by(id: params[:id])
+    if order && order.user_id != current_user.id
       flash[:alert] = "Unauthorised access"
-      redirect_back(fallback_location: root_path)
+      redirect_to root_path
+
     end 
   end 
 
