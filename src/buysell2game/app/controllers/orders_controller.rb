@@ -4,6 +4,13 @@ class OrdersController < ApplicationController
 
 
     def index
+      if !current_user.orders.find_by(order_status: "pending")
+        flash[:notice] = "Your cart is empty!"
+        redirect_to root_path
+      else
+        redirect_to order_path(current_user.orders.find_by(order_status: "pending").id)
+      end
+
     end
 
     def show
@@ -12,44 +19,47 @@ class OrdersController < ApplicationController
       
       @order = current_user.orders.find_by(order_status: "pending")
       #Below is to ensure when all items are removed from Order, there wont be a Stripe error as the total below will be $0
-      if @order.items.empty?
-        flash[:alert] = "Your cart is empty"
-        redirect_to root_path
-      else
-        @items = @order.items.all
+      @items = @order.items.all
 
-        total_price = 0
-        @items.each do |item|
+      total_price = 0
+      @items.each do |item|
+        #Below code ensures only unsold items are added to the total payment before sending to stripe
+
+        if item.sold == true
+          flash[:notice] = "One or more item is no longer available. Review your order"
+          redirect_to order_path
+        else 
           total_price += item.listing.price
         end
-        
-        total_cents = (total_price*100).to_i
-
-        session = Stripe::Checkout::Session.create(
-          payment_method_types: ['card'],
-          customer_email:current_user && current_user.email, 
-          line_items: [
-              {
-                name: "Pay 2ndGame",
-                amount: total_cents, 
-                currency: 'aud',
-                quantity: 1
-              }
-            ],
-          #send metadata to Stripe and stripe send it back once payment is sucessful
-          payment_intent_data: {
-            metadata: {
-              user_id: current_user && current_user.id, 
-              order_id: @order.id
-            }
-          },
-          success_url: "#{root_url}payments/success/#{@order.id}",
-          cancel_url: root_url
-        )
-    
-        @session_id = session.id
-      
       end
+      
+      total_cents = (total_price*100).to_i
+
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        customer_email:current_user && current_user.email, 
+        line_items: [
+            {
+              name: "Pay 2ndGame Corp",
+              amount: total_cents, 
+              currency: 'aud',
+              quantity: 1
+            }
+          ],
+        #send metadata to Stripe and stripe send it back once payment is sucessful
+        payment_intent_data: {
+          metadata: {
+            user_id: current_user && current_user.id, 
+            order_id: @order.id
+          }
+        },
+        success_url: "#{root_url}payments/success/#{@order.id}",
+        cancel_url: root_url
+      )
+  
+      @session_id = session.id
+      
+      
     end
 
     def new
@@ -59,19 +69,28 @@ class OrdersController < ApplicationController
 
     def create
 
+      listing = Listing.find_by(id: params[:listing_id])
+
     # Only create a new line in Orders table if there isnt already one pending.
       if !current_user.orders.find_by(order_status: "pending")
         @order = Order.create(user_id: current_user.id)
+        @order.items.create(listing_id: listing.id, price: listing.price)
+
       else
         @order = current_user.orders.find_by(order_status: "pending")
+        if !@order.items.find_by(listing_id: listing.id)
+          @order.items.create(listing_id: listing.id, price: listing.price)
+          #TODO probaly need redirect. Find a way to display message without redirecting
+          # flash.now.notice = "Item succesfully added"
+        else
+          #TODO
+          # flash.now.notice = "Item already added"
+  
+        end
+
       end
 
-      listing = Listing.find_by(id: params[:listing_id].to_i)
-      if !@order.items.find_by(listing_id: listing.id)
-        @item = @order.items.create(listing_id: listing.id, price: listing.price)
-      else
-        @item = @order.items.find_by(listing_id: listing.id)
-      end
+
 
     end
 

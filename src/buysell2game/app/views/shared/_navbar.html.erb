@@ -75,11 +75,7 @@
                 <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
               </li>
               </li>
-                <%if !current_user.orders.find_by(order_status: "pending")%>
-                  <%=link_to "Cart", root_path, data: {confirm: "Your cart is empty"}, class: "nav-link"%>
-                <%else%>
-                  <%=link_to "Cart", order_path("#{current_user.orders.find_by(order_status: "pending").id}"), class: "nav-link"%>
-                <%end%>
+                <%=link_to "Cart", orders_path, class: "nav-link"%>
               </li>
             <%else%>
               <li class="nav-item">

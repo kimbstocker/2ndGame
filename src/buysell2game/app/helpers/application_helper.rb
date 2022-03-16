@@ -11,5 +11,9 @@ module ApplicationHelper
         return 'info'
       end 
     end 
+
+    def notice(message)
+      self[:notice] = message
+    end
   end
   
