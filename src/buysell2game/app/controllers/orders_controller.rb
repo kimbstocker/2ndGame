@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    # before_action :authorize_user, only: [:create, :show, :destroy]
+    before_action :authorize_user
     before_action :set_order, only: [:edit, :update, :destroy]
 
 
@@ -111,12 +111,13 @@ private
     end
     
 
-    # def authorize_user 
-    #   if !user_signed_in?
-    #     flash[:alert] = "Please sign in or create an account first"
-    #     redirect_to root_path
-    #   end 
-    # end 
+    def authorize_user 
+      if !user_signed_in?
+        flash[:alert] = "Please sign in or create an account to proceed!"
+        #TODO after use signed in, they're routed to root_path which is not ideal, would be good if they're routed to their previous path
+        redirect_to new_user_session_path
+      end 
+    end 
 
 
 

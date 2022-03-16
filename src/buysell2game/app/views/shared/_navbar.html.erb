@@ -71,23 +71,20 @@
                   </ul>
                 </div>
               </li>
+
+            <%else%>
+              <li class="nav-item">
+                <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
+              </li>
+
+            <%end%>
+
               <li class="nav-item">
                 <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
               </li>
               </li>
                 <%=link_to "Cart", orders_path, class: "nav-link"%>
               </li>
-            <%else%>
-              <li class="nav-item">
-                <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><%= image_tag "cart.jpg", alt: "a shopping cart", class: "nav-icon-image"%></a>
-              </li>
-            <%end%>
           </li>
 
 
