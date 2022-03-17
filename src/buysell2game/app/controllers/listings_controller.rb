@@ -10,6 +10,8 @@ class ListingsController < ApplicationController
 
   def index
 
+    #TODO filter items that belong to the user as well
+
     # Filter the listings by category_id and user_id for shop by "Category" and "My listings" features.
     # This is possible because of the Foreign keys user_id and category_id attributes in the Listings table 
     # The params[:id] (with the listing category names) is passed in from the link tags eg. "listings_category_path("puzzles")" in the view home.html.erb page and navbar.

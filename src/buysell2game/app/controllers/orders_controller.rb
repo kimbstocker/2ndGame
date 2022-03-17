@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
 
     def index
-      if !@order && @order.items.empty?
+      if !@order || @order.items.empty?
         flash[:notice] = "Your cart is empty!"
         redirect_back(fallback_location: root_path)
       else
