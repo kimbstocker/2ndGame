@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: [:index]
     before_action :sign_in_to_order
     before_action :authorize_user
     before_action :set_order, only: [:index, :show, :create]

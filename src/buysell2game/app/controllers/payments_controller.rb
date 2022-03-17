@@ -10,13 +10,7 @@ class PaymentsController < ApplicationController
 
     def create_checkout_session
 
-        # @items = @order.items.all
 
-        # if !@items || @items == nil
-        #     flash[:notice] = "One or more item is no longer available. Your cart is now emptied"
-        #     redirect_to order_path
-        # else
-        #     print @items
             total_price = 0
 
             #TODO since the item is destroyed after another user bought it, cant check
@@ -62,7 +56,6 @@ class PaymentsController < ApplicationController
             
                 @session_id = session.id
             end
-        # end
         
 
           
