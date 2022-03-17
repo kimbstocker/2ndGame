@@ -1,18 +1,32 @@
 <h2>Order Summary</h2>
 <section>
-  <div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+        <th scope="col">Remove?</th>
+      </tr>
+    </thead>
     <%if @order.items != nil%>
 
       <% total = 0%>
       <% @items.each do |item| %>
-        <li class="d-flex">Item: <%= item.listing.listing_name %>/ Price: <%= format_price(item.listing.price) %>/
-          <%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => { :item_id => item.id},  class: "link-primary"}%>
-        </li>
+
+        <tbody>
+          <tr>
+            <td><%= item.listing.listing_name %></td>
+            <td><%= format_price(item.listing.price)%></td>
+            <td><%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => {:item_id => item.id},  class: "link-primary"}%></td>
+          </tr>
+        </tbody>
+
         <%total += item.listing.price%>
       <% end %>
-      <h3>Sub total: <%= number_to_currency(total) %></h3>
 
-  </div>
+  </table>
+
+    <h3>Sub total: <%= number_to_currency(total) %></h3>
 
     <%= button_to "Proceed to checkout", create_checkout_session_path,
       remote: true,
@@ -26,3 +40,4 @@
   <%end%>
 
 </section>
+
