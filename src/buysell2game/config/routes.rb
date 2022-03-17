@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   delete "items/:id", to: "items#destroy", as: "delete_item"
   get "payments/success/:id", to: "payments#success", as: "payments_success"
   post "payments/webhook", to: "payments#webhook"
+  post "payments", to: "payments#create_checkout_session", as: "create_checkout_session"
 
 
 
