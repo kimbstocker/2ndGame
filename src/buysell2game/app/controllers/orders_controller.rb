@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
 
       end
       #If the item is not already in the list of items under the order. create one
+      #Add the item price to the order total (before checkout) and update it
       if !@order.items.find_by(listing_id: listing.id)
         item = @order.items.create(listing_id: listing.id, price: listing.price)
         flash[:notice] = "Item succesfully added."
@@ -70,6 +71,7 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = current_user.orders.find_by(order_status: "pending")
+    #Record the order total before checkout
     if @order
       items = @order.items.all
       @order_total_before_checkout = 0
