@@ -1,47 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="nav-link" href="/"><%= image_tag "logo.jpg", alt: "a octahedron shape dice logo", class: "logo-image"%></a>
-                        
-
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <%=link_to "Home", root_path, class: "nav-link"%>
-
-      </li>
-      <li class="nav-item">
-        <div class="dropdown">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><%= image_tag "logo.jpg", alt: "a octahedron shape dice logo", class: "logo-image"%></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%=link_to "Home", root_path, class: "nav-link"%>        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Top seller</a>        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Community</a>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
-          </a>
-
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><%=link_to "Classic", listings_category_path("classic"), class: "dropdown-item"%></li>
-            <li><%=link_to "Family", listings_category_path("family"), class: "dropdown-item"%></li>
-            <li><%=link_to "Strategy", listings_category_path("strategy"), class: "dropdown-item"%></li>
-            <li><%=link_to "Fantasy", listings_category_path("fantasy"), class: "dropdown-item"%></li>
-            <li><%=link_to "Puzzles", listings_category_path("puzzles"), class: "dropdown-item"%></li>
-            <li><%=link_to "Others", listings_category_path("others"), class: "dropdown-item"%></li>
-            <div class="dropdown-divider"></div>
-            <li><%=link_to "Shop all", listings_category_path("all"), class: "dropdown-item"%></li>
-
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Top seller</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Community</a>
-      </li>
-    </ul>
-   
-  </div>
-
+           Category
+         </a>
+ 
+         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+           <li><%=link_to "Classic", listings_category_path("classic"), class: "dropdown-item"%></li>
+           <li><%=link_to "Family", listings_category_path("family"), class: "dropdown-item"%></li>
+           <li><%=link_to "Strategy", listings_category_path("strategy"), class: "dropdown-item"%></li>
+           <li><%=link_to "Fantasy", listings_category_path("fantasy"), class: "dropdown-item"%></li>
+           <li><%=link_to "Puzzles", listings_category_path("puzzles"), class: "dropdown-item"%></li>
+           <li><%=link_to "Others", listings_category_path("others"), class: "dropdown-item"%></li>
+           <div class="dropdown-divider"></div>
+           <li><%=link_to "Shop all", listings_category_path("all"), class: "dropdown-item"%></li>
+ 
+         </ul>
+        </li>
+      </ul>
+    </div>
     <div>
         <ul class="nav justify-content-end">
 
@@ -83,7 +73,7 @@
                 <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
               </li>
               </li>
-                <a class="nav-link" href="/orders"><%= image_tag "cart.jpg", alt: "a heart shape", class: "nav-icon-image"%>
+                <a class="nav-link" href="/orders"><%= image_tag "cart.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
 
               </li>
           </li>
@@ -92,7 +82,12 @@
            
         </ul>
     </div>
+  </div>
+  
 </nav>
+
+
+
 
 
 

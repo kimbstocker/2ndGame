@@ -20,7 +20,7 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
 	# Generate 5 users
 	(1..5).each do |id|
 		User.create!(
-			id: rand(3..6),
+			id: id,
 			email: Faker::Internet.email,
 			password: "123456", 
 			password_confirmation: "123456",
