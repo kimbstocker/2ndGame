@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
     skip_before_action :verify_authenticity_token, only: [:webhook]
     before_action :set_order
+    before_action :set_items, only: [:create_checkout_session]
     before_action :authorize_user 
 
     def success
@@ -9,45 +10,61 @@ class PaymentsController < ApplicationController
 
     def create_checkout_session
 
-        @items = @order.items.all
-        total_price = 0
-        @items.each do |item|
-          #Below code ensures only unsold items are added to the total payment before sending to stripe
-  
-          if item.sold == true
-            flash[:notice] = "One or more item is no longer available. Review your order"
-            redirect_to order_path
-          else 
-            total_price += item.listing.price
-          end
-        end
-        
-        total_cents = (total_price*100).to_i
-        session = Stripe::Checkout::Session.create(
-            payment_method_types: ['card'],
-            customer_email:current_user && current_user.email, 
-            line_items: [
-                {
-                  name: "Pay 2ndGame Corp",
-                  amount: total_cents, 
-                  currency: 'aud',
-                  quantity: 1
-                }
-              ],
-            #send metadata to Stripe and stripe send it back once payment is sucessful
-            payment_intent_data: {
-              metadata: {
-                user_id: current_user && current_user.id, 
-                order_id: @order.id
-              }
-            },
+        # @items = @order.items.all
+
+        # if !@items || @items == nil
+        #     flash[:notice] = "One or more item is no longer available. Your cart is now emptied"
+        #     redirect_to order_path
+        # else
+        #     print @items
+            total_price = 0
+
+            #TODO since the item is destroyed after another user bought it, cant check
+
+            @items.each do |item|
+            #Below code ensures only unsold items are added to the total payment before sending to stripe
     
-            #TODO restrict access to this page
-            success_url: "#{root_url}payments/success/#{@order.id}",
-            cancel_url: root_url
-          )
-      
-        @session_id = session.id
+                if item.sold == true
+                    flash[:alert] = "One or more item is no longer available. Review your order"
+                    redirect_to order_path
+                else 
+                    total_price += item.listing.price
+                end
+            end
+
+            if total_price == 0 || total_price != @order.total
+                flash[:alert] = "One or more item is no longer available. Review your order"
+                redirect_to order_path(@order.id)
+            else
+                total_cents = (total_price*100).to_i
+                session = Stripe::Checkout::Session.create(
+                    payment_method_types: ['card'],
+                    customer_email:current_user && current_user.email, 
+                    line_items: [
+                        {
+                        name: "Pay 2ndGame Corp",
+                        amount: total_cents, 
+                        currency: 'aud',
+                        quantity: 1
+                        }
+                    ],
+                    #send metadata to Stripe and stripe send it back once payment is sucessful
+                    payment_intent_data: {
+                    metadata: {
+                        user_id: current_user && current_user.id, 
+                        order_id: @order.id
+                    }
+                    },
+            
+                    success_url: "#{root_url}payments/success/#{@order.id}",
+                    cancel_url: root_url
+                )
+            
+                @session_id = session.id
+            end
+        # end
+        
+
           
 
     end
@@ -98,6 +115,11 @@ class PaymentsController < ApplicationController
 
     def set_order
         @order = Order.find_by(id: params[:id])
+    end
+
+    def set_items
+        @items = @order.items.all
+
     end
 
     def authorize_user 

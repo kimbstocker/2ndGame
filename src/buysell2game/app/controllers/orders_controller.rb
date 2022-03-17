@@ -30,17 +30,21 @@ class OrdersController < ApplicationController
     def create
 
       listing = Listing.find_by(id: params[:listing_id])
-
     # Only create a new line in Orders table if there isnt already one pending.
       if !@order
         @order = Order.create(user_id: current_user.id)
+        @order_total_before_checkout = 0
 
       end
+      #If the item is not already in the list of items under the order. create one
       if !@order.items.find_by(listing_id: listing.id)
-        @order.items.create(listing_id: listing.id, price: listing.price)
+        item = @order.items.create(listing_id: listing.id, price: listing.price)
         flash[:notice] = "Item succesfully added."
-        redirect_back(fallback_location: root_path)
+        @order_total_before_checkout += item.price
+        @order.update(total: @order_total_before_checkout)
 
+        redirect_back(fallback_location: root_path)
+      #If already in the order, flash message and do not add
       else
         flash[:alert] = "Item already added."
         redirect_back(fallback_location: root_path)
@@ -66,6 +70,13 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = current_user.orders.find_by(order_status: "pending")
+    if @order
+      items = @order.items.all
+      @order_total_before_checkout = 0
+      items.each do |item| 
+        @order_total_before_checkout += item.price
+      end
+    end
 
   end
   
