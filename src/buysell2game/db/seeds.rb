@@ -20,7 +20,6 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
 	# Generate 5 users
 	(1..5).each do |id|
 		User.create!(
-			id: id,
 			email: Faker::Internet.email,
 			password: "123456", 
 			password_confirmation: "123456",
@@ -31,7 +30,6 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
 	# Generate 15 listings
 	(1..15).each do |id|
 		Listing.create!(
-			id: id,
 			listing_name: Faker::Game.title, 
 			condition: rand(1..5),
 			price: rand(10..30),

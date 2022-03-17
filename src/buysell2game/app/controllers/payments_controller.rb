@@ -101,7 +101,12 @@ class PaymentsController < ApplicationController
             order_total += item.price
         end
         order.update(total: order_total)
+
+
+        #TODO Add column total amount paid and update by getting "amount_total"=>1600 from params
         Payment.create(order_id: order.id, payment_id: payment_intent_id, receipt_url: receipt_url)
+
+
     end 
 
     private
@@ -124,3 +129,4 @@ class PaymentsController < ApplicationController
         end 
     end 
 end
+
