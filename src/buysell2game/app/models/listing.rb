@@ -9,6 +9,10 @@ class Listing < ApplicationRecord
   has_one_attached :picture
   has_one :item
 
+  
+  has_many :favourites, dependent: :destroy
+  has_many :users, through: :favourite
+
 end
 
 

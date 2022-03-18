@@ -4,6 +4,7 @@ class CreatePayments < ActiveRecord::Migration[6.1]
       t.references :order, null: false, foreign_key: true
       t.string :payment_id
       t.string :receipt_url
+      t.integer :amount_total
 
       t.timestamps
     end
