@@ -4,7 +4,7 @@
 
       <div class="col-md-6">
         <%if !@listing.picture.attached?%>
-            <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"img-fluid",  style: "width: 35rem;"%>
+            <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"img-fluid"%>
 
         <%else%>
             <%=image_tag @listing.picture, alt: @listing.listing_name, class:"img-fluid"%>
