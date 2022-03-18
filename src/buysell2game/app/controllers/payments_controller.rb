@@ -13,21 +13,15 @@ class PaymentsController < ApplicationController
 
             total_price = 0
 
-            #TODO since the item is destroyed after another user bought it, cant check
-
             @items.each do |item|
             #Below code ensures only unsold items are added to the total payment before sending to stripe
-    
-                if item.sold == true
-                    flash[:alert] = "One or more item is no longer available. Review your order"
-                    redirect_to order_path
-                else 
-                    total_price += item.listing.price
-                end
+                total_price += item.listing.price
+
             end
 
             if total_price == 0 || total_price != @order.total
                 flash[:alert] = "One or more item is no longer available. Review your order"
+                @order.update(total: total_price)
                 redirect_to order_path(@order.id)
             else
                 total_cents = (total_price*100).to_i
