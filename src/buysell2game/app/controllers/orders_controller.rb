@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
         flash[:notice] = "You have no order yet!"
         redirect_back(fallback_location: root_path)
       else
-        @orders = current_user.orders - current_user.orders.where(order_status: 1)
+        @orders = current_user.orders - current_user.orders.where(order_status: "pending")
       end
     end
 
@@ -19,8 +19,9 @@ class OrdersController < ApplicationController
       if !@order || @order.items.empty?
         flash[:notice] = "Your cart is empty!"
         redirect_back(fallback_location: root_path)
+      else
+        @items = @order.items.all
       end
-      @items = @order.items
 
     end
 
