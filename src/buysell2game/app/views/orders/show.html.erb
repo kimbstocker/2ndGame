@@ -17,7 +17,7 @@
           <tr>
             <td><%= item.listing.listing_name %></td>
             <td><%= format_price(item.listing.price)%></td>
-            <td><%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => {:item_id => item.id},  class: "link-primary"}%></td>
+            <td><%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => {:item_id => item.id},  class: "btn btn-sm btn-danger"}%></td>
           </tr>
         </tbody>
 
@@ -32,7 +32,7 @@
       remote: true,
       method: :post,
       params: {id: @order.id},
-      class: 'btn btn-primary mb-3 pr-2',
+      class: "btn btn-primary mb-3 pr-2",
       data: {disable_with: "Loading..."}%>
 
   <%else%>

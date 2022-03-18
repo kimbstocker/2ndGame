@@ -97,8 +97,6 @@ class PaymentsController < ApplicationController
         order.update(total: order_total)
 
         amount_total = payment.charges.data[0].amount_captured
-
-        #TODO Add column total amount paid and update by getting "amount_total"=>1600 from params
         payment_line = Payment.create(order_id: order.id, payment_id: payment_intent_id, receipt_url: receipt_url)
         payment_line.update(amount_total: amount_total)
 

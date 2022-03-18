@@ -13,6 +13,12 @@ class Listing < ApplicationRecord
   has_many :favourites, dependent: :destroy
   has_many :users, through: :favourite
 
+  #data validations, even the form include :require => true, this create an extra layer to ensure data received is valid
+  validates :listing_name, :condition, :price, :description, :category_id, :shipping, presence: true 
+  validates :listing_name, length: {minimum: 2}
+
+
+
 end
 
 

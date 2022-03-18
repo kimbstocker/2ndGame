@@ -40,7 +40,7 @@
                             <li class="list-group-item">
                                     <h5>Listing status: <%=listing.listing_status.capitalize%></h5>
                                 <div class="d-flex justify-content-between align-items-end">
-                                    <%if listing.listing_status != "sold"%>
+                                    <%if listing.listing_status != "sold" && listing.listing_status != "archived"%>
                                         <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
                                     <%end%>
                                     <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>

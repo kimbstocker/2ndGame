@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :authenticate_user!, except: [:index]
-    before_action :sign_in_to_order
+    before_action :authenticate_user!
     before_action :authorize_user
     before_action :set_order, only: [:index, :show, :create]
 
@@ -18,7 +17,8 @@ class OrdersController < ApplicationController
 
       if !@order || @order.items.empty?
         flash[:notice] = "Your cart is empty!"
-        redirect_back(fallback_location: root_path)
+        redirect_to root_path
+
       else
         @items = @order.items.all
       end
@@ -83,15 +83,6 @@ class OrdersController < ApplicationController
     end
 
   end
-  
-
-  def sign_in_to_order 
-    if !user_signed_in?
-      flash[:alert] = "Please sign in or create an account to proceed!"
-      #TODO after use signed in, they're routed to root_path which is not ideal, would be good if they're routed to their previous path
-      redirect_to new_user_session_path
-    end 
-  end 
 
 
   def authorize_user 
