@@ -16,31 +16,50 @@ class ListingsController < ApplicationController
     # This is possible because of the Foreign keys user_id and category_id attributes in the Listings table 
     # The params[:id] (with the listing category names) is passed in from the link tags eg. "listings_category_path("puzzles")" in the view home.html.erb page and navbar.
     # Only listed listings are showed to users. For those listing that have listing_status others than "listed" such as "draft", "sold" or "archived", only their owners can see those in their "my listings" page.
-    case params[:id]
-    when "all"
-      @listings = Listing.all.where(listing_status: "listed")
-    when "family"
-      @listings = Listing.where(category_id: 1, listing_status: "listed")
-    when "strategy"
-      @listings = Listing.where(category_id: 2, listing_status: "listed")
-    when "classic"
-      @listings = Listing.where(category_id: 3, listing_status: "listed")
-    when "puzzles"
-      @listings = Listing.where(category_id: 4, listing_status: "listed")
-    when "fantasy"
-      @listings = Listing.where(category_id: 5, listing_status: "listed")
-    when "others"
-      @listings = Listing.where(category_id: 6, listing_status: "listed")
-    when "#{current_user.id}"
-      @listings = current_user.listings
-    when "favourites"
-      user_favouties = User.find_by(id: current_user.id).favourites
-      @listings = []
-      user_favouties.each do |fav|
-        @listings << fav.listing
-      end
 
-    
+    if !user_signed_in?
+      case params[:id]
+      when "all"
+        @listings = Listing.all.where(listing_status: "listed")
+      when "family"
+        @listings = Listing.where(category_id: 1, listing_status: "listed")
+      when "strategy"
+        @listings = Listing.where(category_id: 2, listing_status: "listed")
+      when "classic"
+        @listings = Listing.where(category_id: 3, listing_status: "listed")
+      when "puzzles"
+        @listings = Listing.where(category_id: 4, listing_status: "listed")
+      when "fantasy"
+        @listings = Listing.where(category_id: 5, listing_status: "listed")
+      when "others"
+        @listings = Listing.where(category_id: 6, listing_status: "listed")
+      end
+    else
+
+      case params[:id]
+      when "all"
+        @listings = Listing.all.where(listing_status: "listed") - current_user.listings
+      when "family"
+        @listings = Listing.where(category_id: 1, listing_status: "listed") - current_user.listings
+      when "strategy"
+        @listings = Listing.where(category_id: 2, listing_status: "listed") - current_user.listings
+      when "classic"
+        @listings = Listing.where(category_id: 3, listing_status: "listed") - current_user.listings
+      when "puzzles"
+        @listings = Listing.where(category_id: 4, listing_status: "listed") - current_user.listings
+      when "fantasy"
+        @listings = Listing.where(category_id: 5, listing_status: "listed") - current_user.listings
+      when "others"
+        @listings = Listing.where(category_id: 6, listing_status: "listed") - current_user.listings
+      when "#{current_user.id}"
+        @listings = current_user.listings
+      when "favourites"
+        user_favouties = User.find_by(id: current_user.id).favourites
+        @listings = []
+        user_favouties.each do |fav|
+          @listings << fav.listing
+        end
+      end
     end
 
   end
