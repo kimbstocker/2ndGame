@@ -9,6 +9,7 @@ class FavouritesController < ApplicationController
 
         Favourite.create(user_id: current_user.id, listing_id: params[:listing_id])
         flash[:notice] = "Item succesfully added to your favourite list."
+        redirect_back(fallback_location: root_path)
 
 
     end
@@ -17,20 +18,10 @@ class FavouritesController < ApplicationController
 
         fav = Favourite.find_by(listing_id: params[:listing_id], user_id: current_user.id)
         fav.destroy
-        flash[:notice] = "Item succesfully deleted from your favourite list."
+        flash[:notice] = "Item succesfully removed from your favourite list."
         redirect_back(fallback_location: root_path)
 
     end
 
-    private
-
-    def authorize_user 
-        # order = Order.find_by(id: params[:id])
-        # if order && order.user_id != current_user.id
-        #     flash[:alert] = "Unauthorised access"
-        #     redirect_to root_path
-
-        # end 
-    end 
 
 end

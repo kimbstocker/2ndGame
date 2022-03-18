@@ -1,8 +1,8 @@
 class PaymentsController < ApplicationController
     skip_before_action :verify_authenticity_token, only: [:webhook]
+    before_action :authorize_user 
     before_action :set_order
     before_action :set_items, only: [:create_checkout_session]
-    before_action :authorize_user 
 
     def success
 
@@ -96,9 +96,11 @@ class PaymentsController < ApplicationController
         end
         order.update(total: order_total)
 
+        amount_total = payment.charges.data[0].amount_captured
 
         #TODO Add column total amount paid and update by getting "amount_total"=>1600 from params
-        Payment.create(order_id: order.id, payment_id: payment_intent_id, receipt_url: receipt_url)
+        payment_line = Payment.create(order_id: order.id, payment_id: payment_intent_id, receipt_url: receipt_url)
+        payment_line.update(amount_total: amount_total)
 
 
     end 
@@ -115,7 +117,7 @@ class PaymentsController < ApplicationController
     end
 
     def authorize_user 
-        # order = Order.find_by(id: params[:id])
+        @order = Order.find_by(id: params[:id])
         if @order && @order.user_id != current_user.id
           flash[:alert] = "Unauthorised access"
           redirect_to root_path

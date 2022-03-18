@@ -12,16 +12,15 @@
     </thead>
     
     <tbody>
-        <tr>
         <%@orders.each do |order|%>
-
+        <tr>
         <td><%= order.id %></td>
         <td><%= format_text(order.order_status)%></td>
         <td><%= order.total%></td>
         <td><%= order.updated_at%></td>
+        </tr>
 
         <%end%>
-        </tr>
     </tbody>
 
   </table>

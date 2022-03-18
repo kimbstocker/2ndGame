@@ -10,12 +10,11 @@ class ListingsController < ApplicationController
 
   def index
 
-    #TODO filter items that belong to the user as well
-
     # Filter the listings by category_id and user_id for shop by "Category" and "My listings" features.
     # This is possible because of the Foreign keys user_id and category_id attributes in the Listings table 
     # The params[:id] (with the listing category names) is passed in from the link tags eg. "listings_category_path("puzzles")" in the view home.html.erb page and navbar.
-    # Only listed listings are showed to users. For those listing that have listing_status others than "listed" such as "draft", "sold" or "archived", only their owners can see those in their "my listings" page.
+    # Only listed listings are showed to users. Users wont see their own listing in buying page.
+    # For those listing that have listing_status others than "listed" such as "draft", "sold" or "archived", only their owners can see those in their "my listings" page.
 
     if !user_signed_in?
       case params[:id]
