@@ -33,6 +33,13 @@ class ListingsController < ApplicationController
       @listings = Listing.where(category_id: 6, listing_status: "listed")
     when "#{current_user.id}"
       @listings = current_user.listings
+    when "favourites"
+      user_favouties = User.find_by(id: current_user.id).favourites
+      @listings = []
+      user_favouties.each do |fav|
+        @listings << fav.listing
+      end
+
     
     end
 

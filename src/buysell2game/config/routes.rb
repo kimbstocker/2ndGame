@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   get "payments/success/:id", to: "payments#success", as: "payments_success"
   post "payments/webhook", to: "payments#webhook"
   post "payments", to: "payments#create_checkout_session", as: "create_checkout_session"
+  get "favourites", to: "favourites#index", as: "favourites"
+  post "favourites", to: "favourites#create"
+  delete "favourites", to: "favourites#destroy"
 
 
 

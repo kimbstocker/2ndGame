@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
     end
 
     def destroy
+
         @item = Item.find_by(id: params[:item_id].to_i)
         @item.destroy
         order = Order.find_by(id: @item.order.id)

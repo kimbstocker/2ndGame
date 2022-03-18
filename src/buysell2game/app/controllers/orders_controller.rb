@@ -6,20 +6,22 @@ class OrdersController < ApplicationController
 
 
     def index
-      if !@order || @order.items.empty?
-        flash[:notice] = "Your cart is empty!"
+      if !current_user.orders
+        flash[:notice] = "You have no order yet!"
         redirect_back(fallback_location: root_path)
       else
-        redirect_to order_path(@order.id)
+        @orders = current_user.orders - current_user.orders.where(order_status: 1)
       end
-
     end
 
     def show
 
-      #Below is to ensure when all items are removed from Order, there wont be a Stripe error as the total below will be $0
-      @items = @order.items.all
-      
+      if !@order || @order.items.empty?
+        flash[:notice] = "Your cart is empty!"
+        redirect_back(fallback_location: root_path)
+      end
+      @items = @order.items
+
     end
 
     def new
@@ -30,7 +32,7 @@ class OrdersController < ApplicationController
     def create
 
       listing = Listing.find_by(id: params[:listing_id])
-    # Only create a new line in Orders table if there isnt already one pending.
+      # Only create a new line in Orders table if there isnt already one pending.
       if !@order
         @order = Order.create(user_id: current_user.id)
         @order_total_before_checkout = 0
@@ -49,7 +51,6 @@ class OrdersController < ApplicationController
       else
         flash[:alert] = "Item already added."
         redirect_back(fallback_location: root_path)
-
 
       end
 

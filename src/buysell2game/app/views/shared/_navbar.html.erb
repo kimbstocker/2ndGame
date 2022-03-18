@@ -54,8 +54,8 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><%=link_to "Create listing", new_listing_path, class: "dropdown-item"%></li>
                     <li><%=link_to "My listings", listings_category_path("#{current_user.id}"), class: "dropdown-item"%></li>
-                    <li><a class="dropdown-item nav-link disabled" href="#">My orders</a></li>
-                    <li><a class="dropdown-item nav-link disabled" href="#">My favourites</a></li>
+                    <li><%=link_to "My orders", orders_path, class: "dropdown-item"%></li>
+                    <li><%=link_to "My favourites", listings_category_path("favourites"), class: "dropdown-item"%></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item nav-link disabled" href="#">Account Settings</a></li>
                   </ul>
@@ -70,10 +70,14 @@
             <%end%>
 
               <li class="nav-item">
+              <%if user_signed_in?%>
+                <a class="nav-link" href="/listings/category/favourites"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
+              <%else%>
                 <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
+              <%end%>
               </li>
               </li>
-                <a class="nav-link" href="/orders"><%= image_tag "cart.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
+                <a class="nav-link" href="/orders/show"><%= image_tag "cart.jpg", alt: "shopping cart", class: "nav-icon-image"%></a>
 
               </li>
           </li>

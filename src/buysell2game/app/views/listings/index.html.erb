@@ -1,10 +1,11 @@
 
-
 <%if user_signed_in? && params[:id] == "#{current_user.id}"%>
     <h3 class="display-4 text-center">Your listed board games</h3>
 <%else%>
     <h3 class="display-4 text-center"><%="#{params[:id]}".capitalize + " Board Games" %></h3>
 <%end%>
+
+
 <section class="container d-flex justify-content-center">
     <div class="d-flex flex-wrap justify-content-center">
             
@@ -19,11 +20,21 @@
                         <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"thumbnail card-img top"%>
                     <%end%>
                 </div>
-                <div class="card-body ">
+                <div class="card-body d-flex flex-column align-content-between ">
 
-                    <h4 class="card-title"><%=listing.listing_name%></h4>
+                    <h4 class="card-title me-3" style="height: 58px"><%=listing.listing_name%></h4>
+                    <div class="d-flex justify-content-between mb-3">
+
                     <h5><%=format_price(listing.price)%></h5>
-    
+
+                    <%if params[:id] == "favourites"%>
+                        <%= button_to "remove from fav", { :controller => "favourites", :action => "destroy" }, { :method => :delete, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"}%>
+                    <%else%>
+                        <%= button_to "add to fav", { :controller => "favourites", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"}%>
+
+                    <%end%>
+                    </div>
+
                     <%if user_signed_in? && current_user.id == listing.user_id%>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
