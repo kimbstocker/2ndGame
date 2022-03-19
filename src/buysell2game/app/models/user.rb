@@ -7,5 +7,4 @@ class User < ApplicationRecord
   has_many :favourites, dependent: :destroy
   has_many :listings, through: :favourite
   has_many :listings
-
 end
