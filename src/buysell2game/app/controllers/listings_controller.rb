@@ -102,14 +102,16 @@ class ListingsController < ApplicationController
 
   def edit 
     #Only listing with status "draft" or "listed" can be edited
-    if @listing.listing_status == "sold" || @listing.listing_status == "archived"
+    if @listing.listing_status == "archived"
       flash[:alert] = "This listing details can no longer be changed"
     end
   end 
 
   def update 
-       
-    @listing.update(listing_params)
+      
+    if @listing_params
+      @listing.update(listing_params)
+    end
     update_listing_status
 
     if @listing.save 
@@ -122,8 +124,12 @@ class ListingsController < ApplicationController
   end 
 
   def destroy 
+    if @listing.listing_status == "sold" || @listing.listing_status == "archived"
+      flash[:alert] = "This listing can no longer be deleted as it has been sold or archived"
+    else
       @listing.destroy
       redirect_to listings_category_path("#{@listing.user_id}"), notice: "Listing succesfully deleted"
+    end
   end
 
 
@@ -141,6 +147,8 @@ class ListingsController < ApplicationController
       @listing.update(listing_status: 2)
     when "Save as draft"
       @listing.update(listing_status: 1)
+    when "Attach receipt"
+      @listing.update(listing_status: 4)
     end
 
   end

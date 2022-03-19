@@ -24,14 +24,18 @@
             <h5>Listing status: 
             <span><strong><%=@listing.listing_status.capitalize%></strong></span></h5>
             <div class="d-flex flex-wrap justify-content-start mb-md-3">
+
               <%if @listing.listing_status != "sold" && @listing.listing_status != "archived"%>
+              
                 <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-primary mx-2" %>
+                <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger m-4" %>  
+
               <%end%>
-                <a href="#" class="btn btn-primary">Attach shipping receipt</a>
+                
+              <%= link_to "Attach shipping receipt", edit_listing_path(@listing.id), class: "btn btn-primary mx-2" %>
+
             </div>
-            <div>
-            <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger m-4" %>  
-            </div>
+          
         <%else%>
         <div>
           <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => @listing.id}, class: "btn btn-primary m-4"}%>

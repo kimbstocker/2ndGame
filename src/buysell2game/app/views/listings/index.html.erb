@@ -47,8 +47,9 @@
                                                 <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>
                                             </div>
                                         </li>
-                                        <li class="list-group-item"><a href="#" class="btn btn-primary">Attach shipping receipt</a></li>
-                                
+                                        <%if listing.listing_status == "sold"%>
+                                            <%= link_to "Attach shipping receipt", edit_listing_path(listing.id), class: "btn btn-primary mx-2" %>
+                                        <%end%>
                                     </ul>
                                                     
                                 
