@@ -33,7 +33,9 @@
               <%end%>
               </div>
               <div class="d-flex">
-              <%= link_to "Attach shipping receipt", edit_listing_path(@listing.id), class: "btn btn-primary mt-3" %>
+              <% if @listing.listing_status == "sold"%>
+                <%= link_to "Attach shipping receipt", edit_listing_path(@listing.id), class: "btn btn-primary mt-3" %>
+              <%end%>
               </div>
             <%# </div> %>
           
