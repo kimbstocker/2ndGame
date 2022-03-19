@@ -1,32 +1,36 @@
 <h2>Order history</h2>
-<section>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Order number</th>
-        <th scope="col">Order status</th>
-        <th scope="col">Total</th>
-        <th scope="col">Updated at</th>
-        <th scope="col">Payment receipt</th>
-
-      </tr>
-    </thead>
-    
-    <tbody>
-        <%@orders.each do |order|%>
+<% if @orders.empty? %>
+  <p>You do not have any order yet!</p>
+<% else %>
+  <section>
+    <table class="table">
+      <thead>
         <tr>
-        <td><%= order.id %></td>
-        <td><%= format_text(order.order_status)%></td>
-        <td><%= order.total%></td>
-        <td><%= order.updated_at%></td>
+          <th scope="col">Order number</th>
+          <th scope="col">Order status</th>
+          <th scope="col">Total</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Payment receipt</th>
 
-        <% if order.payment %>
-          <td><%= link_to "View receipt", order.payment.receipt_url, class: "link-success" %></td>
-        <% end %>
         </tr>
+      </thead>
+      
+      <tbody>
+          <%@orders.each do |order|%>
+          <tr>
+          <td><%= order.id %></td>
+          <td><%= format_text(order.order_status)%></td>
+          <td><%= order.total%></td>
+          <td><%= order.updated_at%></td>
 
-        <%end%>
-    </tbody>
+          <% if order.payment %>
+            <td><%= link_to "View receipt", order.payment.receipt_url, class: "link-success" %></td>
+          <% end %>
+          </tr>
 
-  </table>
-</section>
+          <%end%>
+      </tbody>
+
+    </table>
+  </section>
+<% end %>
