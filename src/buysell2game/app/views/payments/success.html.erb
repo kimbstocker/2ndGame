@@ -2,8 +2,6 @@
 <p>Your order number is #<%= @order.id %></p>
 <% if @order.payment %>
   <%= link_to "View Receipt", @order.payment.receipt_url %>
-
 <% else %>
-    <p>There is a delayed to receive your payment receipt, please check it later at "My orders" link</p>
+  <p>There is a delayed to receive your payment receipt, please check it later at "My orders" link</p>
 <% end %>
-

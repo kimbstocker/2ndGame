@@ -1,74 +1,58 @@
-<% if @listings %> 
-
-    <%if user_signed_in? && params[:id] == "#{current_user.id}"%>
-        <h3 class="display-4 text-center">Your listed board games</h3>
-    <%else%>
-        <h3 class="display-4 text-center"><%="#{params[:id]}".capitalize + " Board Games" %></h3>
-    <%end%>
-
-
-    <section class="container d-flex justify-content-center">
-        <div class="d-flex flex-wrap justify-content-center">
-                
-        <%# Create ecommerce cards for each listing in the category (filtered by the controller method index) %>
-            <% @listings.each do |listing|%>
-                <div class="d-flex m-4">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-img top">
-                            <%if listing.picture.attached?%>
-                                <%=image_tag listing.picture, alt: listing.listing_name, class:"card-img top"%>
-                            <%else%>
-                                <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"thumbnail card-img top"%>
-                            <%end%>
-                        </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
-
-                            <h4 class="card-title flex-grow-1 me-3" style="height: 58px"><%=listing.listing_name%></h4>
-                            <div class="d-flex justify-content-between mb-3">
-
-                                <h5><%=format_price(listing.price)%></h5>
-
-                                <%if params[:id] == "favourites"%>
-                                    <%= button_to "remove from fav", { :controller => "favourites", :action => "destroy" }, { :method => :delete, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"}%>
-                                <%else%>
-                                    <%= button_to "add to fav", { :controller => "favourites", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"}%>
-
-                                <%end%>
-                            </div>
-
-                            <%if user_signed_in? && current_user.id == listing.user_id%>
-                             
-                                <h5>Listing status: <%=listing.listing_status.capitalize%></h5>
-
-                                <div class="d-flex justify-content-between align-items-end mt-3">
-                                    <%if listing.listing_status != "sold" && listing.listing_status != "archived"%>
-                                        <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary"%>
-                                    <%end%>
-                                    <%= link_to "View", listing_path(listing.id), class: "btn btn-primary"%>
-                                </div>
-
-                                <%if listing.listing_status == "sold"%>
-                                    <hr>
-
-                                    <div class="d-flex">
-                                        <%= link_to "Attach shipping receipt", edit_listing_path(listing.id), class: "btn btn-primary" %>
-                                    </div>
-                                <%end%>
-                                            
-                                
-                            <%else%>
-                                <div class="d-flex justify-content-between align-items-end">
-                                    <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn btn-primary"}%>
-                                    <%=link_to "More details", listing_path(listing.id), class: "card-link"%>
-                                </div>
-                                                        
-                            <%end%>
-                        </div>
-                    </div>
+<% if @listings %>
+  <% if user_signed_in? && params[:id] == "#{current_user.id}" %>
+    <h3 class="display-4 text-center">Your listed board games</h3>
+  <% else %>
+    <h3 class="display-4 text-center"><%= "#{params[:id]}".capitalize + " Board Games" %></h3>
+  <% end %>
+  <section class="container d-flex justify-content-center">
+    <div class="d-flex flex-wrap justify-content-center">
+      <%# Create ecommerce cards for each listing in the category (filtered by the controller method index) %>
+      <% @listings.each do |listing| %>
+        <div class="d-flex m-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-img top">
+              <% if listing.picture.attached? %>
+                <%= image_tag listing.picture, alt: listing.listing_name, class:"card-img top" %>
+              <% else %>
+                <%= image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"thumbnail card-img top" %>
+              <% end %>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h4 class="card-title flex-grow-1 me-3" style="height: 58px"><%= listing.listing_name %></h4>
+              <div class="d-flex justify-content-between mb-3">
+                <h5><%= format_price(listing.price) %></h5>
+                <% if params[:id] == "favourites" %>
+                  <%= button_to "remove from fav", { :controller => "favourites", :action => "destroy" }, { :method => :delete, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"} %>
+                <% else %>
+                  <%= button_to "add to fav", { :controller => "favourites", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn-light btn-sm"} %>
+                <% end %>
+              </div>
+              <% if user_signed_in? && current_user.id == listing.user_id %>
+                <h5>Listing status: <%= listing.listing_status.capitalize %></h5>
+                <div class="d-flex justify-content-between align-items-end mt-3">
+                  <% if listing.listing_status != "sold" && listing.listing_status != "archived" %>
+                    <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-primary" %>
+                  <% end %>
+                  <%= link_to "View", listing_path(listing.id), class: "btn btn-primary" %>
                 </div>
-            <%end%>
+                <% if listing.listing_status == "sold" %>
+                  <hr>
+                  <div class="d-flex">
+                    <%= link_to "Attach shipping receipt", edit_listing_path(listing.id), class: "btn btn-primary" %>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="d-flex justify-content-between align-items-end">
+                  <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => listing.id}, class: "btn btn-primary"} %>
+                  <%= link_to "More details", listing_path(listing.id), class: "card-link" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
-    </section>
-<%else%>
-    <%= link_to "Home", root_path%>
-<%end%>
+      <% end %>
+    </div>
+  </section>
+<% else %>
+  <%= link_to "Home", root_path %>
+<% end %>

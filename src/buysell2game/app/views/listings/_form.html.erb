@@ -1,48 +1,37 @@
-<%=form_with model: @listing, local: true do |f|%>
-  
-    <div class='form-group mb-3'> 
-        <%=f.label :listing_name, class: "form-label"%>
-        <%=f.text_field :listing_name, :required => true%>
-    </div>
-    
-    <div class='form-group mb-3'> 
-        <%=f.label :price, class: "form-label"%>
-        <%=f.number_field :price, :required => true%>
-    </div>
-    
-    <div class='form-group mb-3'> 
-        <%=f.label :category_id, class: "form-label"%>
-        <%=f.select :category_id, @categories.map {|c| [c.name.capitalize, c.id]}, :required => true, class: "form-select"%>
-    </div>
-    
-    <h5 class="mb-3">Condition</h5>
-    <%@conditions.each do |option|%>
-        <%=f.radio_button :condition, option, :required => true, class:"mr-2"%>
-        <%=f.label :condition, format_text(option), class: "form-label mr-1" %>
-    <%end%>
-
-    <h5 class="mb-3">Shipping method available</h5>
-    <%@shipping_methods.each do |method|%>
-        <%=f.radio_button :shipping, method, :required => true, class:"mr-2"%>
-        <%=f.label :shipping, format_text(method), class: "form-label mr-1" %>
-        
-    <%end%>
-
-    <div class='form-group mb-3'> 
-        <%=f.label :picture, class: "form-label"%>
-        <%# TODO allow multiple images, need to restyle show once changed %>
-        <%=f.file_field :picture, accept: "image/png,image/jpg,image/jpeg", class: "form-select"%>
-    </div>
-
-    <div class='form-group mb-3'> 
-        <%=f.label :description, class: "form-label"%>
-        <%=f.text_area :description, :required => true, class: "form-control"%>
-    </div>
-
-    <div class='actions'> 
-        <%= f.submit :name => "listing_status" %>
-        <%= f.submit "Save as draft", :name => "listing_status" %>
-
-    </div>
-
-<%end%>
+<%= form_with model: @listing, local: true do |f| %>
+  <div class='form-group mb-3'>
+    <%= f.label :listing_name, class: "form-label" %>
+    <%= f.text_field :listing_name, :required => true %>
+  </div>
+  <div class='form-group mb-3'>
+    <%= f.label :price, class: "form-label" %>
+    <%= f.number_field :price, :required => true %>
+  </div>
+  <div class='form-group mb-3'>
+    <%= f.label :category_id, class: "form-label" %>
+    <%= f.select :category_id, @categories.map {|c| [c.name.capitalize, c.id]}, :required => true, class: "form-select" %>
+  </div>
+  <h5 class="mb-3">Condition</h5>
+  <%@conditions.each do |option| %>
+    <%= f.radio_button :condition, option, :required => true, class:"mr-2" %>
+    <%= f.label :condition, format_text(option), class: "form-label mr-1" %>
+  <% end %>
+  <h5 class="mb-3">Shipping method available</h5>
+  <%@shipping_methods.each do |method| %>
+    <%= f.radio_button :shipping, method, :required => true, class:"mr-2" %>
+    <%= f.label :shipping, format_text(method), class: "form-label mr-1" %>
+  <% end %>
+  <div class='form-group mb-3'>
+    <%= f.label :picture, class: "form-label" %>
+    <%# TODO allow multiple images, need to restyle show once changed %>
+    <%= f.file_field :picture, accept: "image/png,image/jpg,image/jpeg", class: "form-select" %>
+  </div>
+  <div class='form-group mb-3'>
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_area :description, :required => true, class: "form-control" %>
+  </div>
+  <div class='actions'>
+    <%= f.submit :name => "listing_status" %>
+    <%= f.submit "Save as draft", :name => "listing_status" %>
+  </div>
+<% end %>

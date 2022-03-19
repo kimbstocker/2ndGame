@@ -1,10 +1,9 @@
-
-<%if @listing.listing_status != "sold" && @listing.listing_status != "archived"%>
-    <h1> Edit listing - <%= @listing.listing_name%></h1>
-    <p>*Kindly note, by clicking <strong>"Update Listing"</strong> button, your listing will be <strong>updated</strong> and <strong>listed</strong></p>
-    <p>*If you have not listed your item and only want to update the draft, please click <strong>"Save as draft"</strong></p>
-    <%= render "form"%>
-<%elsif @listing.listing_status == "sold"%>
-    <h1> Update shipping receipt - listing - <%= @listing.listing_name%></h1>
-    <%= render "receipt"%>
-<%end%>
+<% if @listing.listing_status != "sold" && @listing.listing_status != "archived" %>
+  <h1> Edit listing - <%= @listing.listing_name %></h1>
+  <p>*Kindly note, by clicking <strong>"Update Listing"</strong> button, your listing will be <strong>updated</strong> and <strong>listed</strong></p>
+  <p>*If you have not listed your item and only want to update the draft, please click <strong>"Save as draft"</strong></p>
+  <%= render "form" %>
+<% elsif @listing.listing_status == "sold" %>
+  <h1> Update shipping receipt - listing - <%= @listing.listing_name %></h1>
+  <%= render "receipt" %>
+<% end %>

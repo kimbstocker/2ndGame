@@ -1,75 +1,42 @@
 <section class="containter">
   <div class="jumbotron m-4 mb-4">
-    <div class="row pr-2">   
-
+    <div class="row pr-2">
       <div class="col-md-6">
-        <%if !@listing.picture.attached?%>
-            <%=image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"img-fluid"%>
-
-        <%else%>
-            <%=image_tag @listing.picture, alt: @listing.listing_name, class:"img-fluid"%>
-
-        <%end%>
+        <% if !@listing.picture.attached? %>
+          <%= image_tag "hero-image.jpg", alt: "dungeon and dragon board game", class:"img-fluid" %>
+        <% else %>
+          <%= image_tag @listing.picture, alt: @listing.listing_name, class:"img-fluid" %>
+        <% end %>
       </div>
-
-      <div class="col-md-6 d-flex flex-column mt-4"> 
-        <h1 class="mb-sm-2 mb-md-5"><%=@listing.listing_name%></h1>
-        <h3 class=" d-flex">Price: <%=format_price(@listing.price)%></h3>
+      <div class="col-md-6 d-flex flex-column mt-4">
+        <h1 class="mb-sm-2 mb-md-5"><%= @listing.listing_name %></h1>
+        <h3 class=" d-flex">Price: <%= format_price(@listing.price) %></h3>
         <h5 class="text-muted">Description:</h5>
-        <p><%=@listing.description%></p>
-        <h5 class="d-flex text-muted">Condition: <%=format_text(@listing.condition)%></h5>
-        <h5 class="d-flex text-muted">Shipping method: <%=format_text(@listing.shipping)%></h5>
-      
-        <%if current_user && current_user.id == @listing.user_id%>
-            <h5>Listing status: 
-            <span><strong><%=@listing.listing_status.capitalize%></strong></span></h5>
-            <%# <div class="d-flex flex-column justify-content-start mb-md-3"> %>
-              <div class="d-flex">
-              <%if @listing.listing_status != "sold" && @listing.listing_status != "archived"%>
-                
-                <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-primary me-3" %>
-                <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>  
-
-              <%end%>
-              </div>
-              <div class="d-flex">
-              <% if @listing.listing_status == "sold"%>
-                <%= link_to "Attach shipping receipt", edit_listing_path(@listing.id), class: "btn btn-primary mt-3" %>
-              <%end%>
-              </div>
-            <%# </div> %>
-          
-        <%else%>
-        <div>
-          <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => @listing.id}, class: "btn btn-primary mt-4"}%>
-        </div>
-        <%end%>
+        <p><%= @listing.description %></p>
+        <h5 class="d-flex text-muted">Condition: <%= format_text(@listing.condition) %></h5>
+        <h5 class="d-flex text-muted">Shipping method: <%= format_text(@listing.shipping) %></h5>
+        <% if current_user && current_user.id == @listing.user_id %>
+          <h5>Listing status: 
+            <span><strong><%= @listing.listing_status.capitalize %></strong></span></h5>
+          <%# <div class="d-flex flex-column justify-content-start mb-md-3"> %>
+          <div class="d-flex">
+            <% if @listing.listing_status != "sold" && @listing.listing_status != "archived" %>
+              <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-primary me-3" %>
+              <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+            <% end %>
+          </div>
+          <div class="d-flex">
+            <% if @listing.listing_status == "sold" %>
+              <%= link_to "Attach shipping receipt", edit_listing_path(@listing.id), class: "btn btn-primary mt-3" %>
+            <% end %>
+          </div>
+          <%# </div> %>
+        <% else %>
+          <div>
+            <%= button_to "Add to cart", { :controller => "orders", :action => "create" }, { :method => :post, :params => { :listing_id => @listing.id}, class: "btn btn-primary mt-4"} %>
+          </div>
+        <% end %>
       </div>
     </div>
-
   </div>
- 
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,36 +8,27 @@
         <th scope="col">Remove?</th>
       </tr>
     </thead>
-    <%if @order.items != nil%>
-
-      <% total = 0%>
+    <% if @order.items != nil %>
+      <% total = 0 %>
       <% @items.each do |item| %>
-
         <tbody>
           <tr>
             <td><%= item.listing.listing_name %></td>
-            <td><%= format_price(item.listing.price)%></td>
-            <td><%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => {:item_id => item.id},  class: "btn btn-sm btn-danger"}%></td>
+            <td><%= format_price(item.listing.price) %></td>
+            <td><%= button_to "Remove item", { :controller => "items", :action => "destroy" }, { :method => :delete, :params => {:item_id => item.id},  class: "btn btn-sm btn-danger"} %></td>
           </tr>
         </tbody>
-
-        <%total += item.listing.price%>
+        <% total += item.listing.price %>
       <% end %>
-
-  </table>
-
+    </table>
     <h3>Sub total: <%= number_to_currency(total) %></h3>
-
     <%= button_to "Proceed to checkout", create_checkout_session_path,
       remote: true,
       method: :post,
       params: {id: @order.id},
       class: "btn btn-primary mb-3 pr-2",
-      data: {disable_with: "Loading..."}%>
-
-  <%else%>
-    <%= link_to "Home", root_path%>
-  <%end%>
-
+      data: {disable_with: "Loading..."} %>
+  <% else %>
+    <%= link_to "Home", root_path %>
+  <% end %>
 </section>
-

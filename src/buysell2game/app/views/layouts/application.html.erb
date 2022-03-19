@@ -5,31 +5,22 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    
   </head>
-
   <body>
-  <div class="container">
-
-    <%flash.each do |key, value|%>
-      <div class="alert alert-<%=select_alert_subclass(key)%> alert-dismissible fade show" role="alert">
-        <%=value%>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <%end%>
-
-    <%= render "shared/navbar"%>
-
-    <%= yield %>
-
-    <%= render "shared/footer"%>
-
-  </div>
-
+    <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= select_alert_subclass(key) %> alert-dismissible fade show" role="alert">
+          <%= value %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <%= render "shared/navbar" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </div>
   </body>
 </html>

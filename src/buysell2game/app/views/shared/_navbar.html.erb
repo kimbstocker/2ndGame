@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><%= image_tag "logo.jpg", alt: "a octahedron shape dice logo", class: "logo-image"%></a>
+    <a class="navbar-brand" href="#"><%= image_tag "logo.jpg", alt: "a octahedron shape dice logo", class: "logo-image" %></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <%=link_to "Home", root_path, class: "nav-link"%>        </li>
+          <%= link_to "Home", root_path, class: "nav-link" %>        </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Top seller</a>        </li>
         <li class="nav-item">
@@ -15,79 +15,57 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-           Category
-         </a>
- 
-         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-           <li><%=link_to "Classic", listings_category_path("classic"), class: "dropdown-item"%></li>
-           <li><%=link_to "Family", listings_category_path("family"), class: "dropdown-item"%></li>
-           <li><%=link_to "Strategy", listings_category_path("strategy"), class: "dropdown-item"%></li>
-           <li><%=link_to "Fantasy", listings_category_path("fantasy"), class: "dropdown-item"%></li>
-           <li><%=link_to "Puzzles", listings_category_path("puzzles"), class: "dropdown-item"%></li>
-           <li><%=link_to "Others", listings_category_path("others"), class: "dropdown-item"%></li>
-           <div class="dropdown-divider"></div>
-           <li><%=link_to "Shop all", listings_category_path("all"), class: "dropdown-item"%></li>
- 
-         </ul>
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><%= link_to "Classic", listings_category_path("classic"), class: "dropdown-item" %></li>
+            <li><%= link_to "Family", listings_category_path("family"), class: "dropdown-item" %></li>
+            <li><%= link_to "Strategy", listings_category_path("strategy"), class: "dropdown-item" %></li>
+            <li><%= link_to "Fantasy", listings_category_path("fantasy"), class: "dropdown-item" %></li>
+            <li><%= link_to "Puzzles", listings_category_path("puzzles"), class: "dropdown-item" %></li>
+            <li><%= link_to "Others", listings_category_path("others"), class: "dropdown-item" %></li>
+            <div class="dropdown-divider"></div>
+            <li><%= link_to "Shop all", listings_category_path("all"), class: "dropdown-item" %></li>
+          </ul>
         </li>
       </ul>
     </div>
     <div>
-        <ul class="nav justify-content-end">
-
-          <li class="nav-item active">
-
-          <%#Only show user dropdown menu option when the user is signed in%>
-           
-            <%if user_signed_in?%>
-
-              <li class="nav-item">
-                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"%>
-              </li>
-            
-              <li class="nav-item dropdown">
-                <div class="dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <%= image_tag "user.jpg", alt: "a human shape", class: "nav-icon-image"%>
-                  </a>
-
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><%=link_to "Create listing", new_listing_path, class: "dropdown-item"%></li>
-                    <li><%=link_to "My listings", listings_category_path("#{current_user.id}"), class: "dropdown-item"%></li>
-                    <li><%=link_to "My orders", orders_path, class: "dropdown-item"%></li>
-                    <li><%=link_to "My favourites", listings_category_path("favourites"), class: "dropdown-item"%></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item nav-link disabled" href="#">Account Settings</a></li>
-                  </ul>
-                </div>
-              </li>
-
-            <%else%>
-              <li class="nav-item">
-                <%= link_to "Sign in", new_user_session_path, class: "nav-link"%>
-              </li>
-
-            <%end%>
-
-              <li class="nav-item">
-                <a class="nav-link" href="/listings/category/favourites"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
-              </li>
-              </li>
-                <a class="nav-link" href="/orders/show"><%= image_tag "cart.jpg", alt: "shopping cart", class: "nav-icon-image"%></a>
-
-              </li>
+      <ul class="nav justify-content-end">
+        <li class="nav-item active">
+          <%#Only show user dropdown menu option when the user is signed in %>
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+            <li class="nav-item dropdown">
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= image_tag "user.jpg", alt: "a human shape", class: "nav-icon-image" %>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><%= link_to "Create listing", new_listing_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "My listings", listings_category_path("#{current_user.id}"), class: "dropdown-item" %></li>
+                  <li><%= link_to "My orders", orders_path, class: "dropdown-item" %></li>
+                  <li><%= link_to "My favourites", listings_category_path("favourites"), class: "dropdown-item" %></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item nav-link disabled" href="#">Account Settings</a></li>
+                </ul>
+              </div>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+          <li class="nav-item">
+            <a class="nav-link" href="/listings/category/favourites"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image" %></a>
           </li>
-
-
-           
-        </ul>
-    </div>
-  </div>
-  
+        </li>
+        <a class="nav-link" href="/orders/show"><%= image_tag "cart.jpg", alt: "shopping cart", class: "nav-icon-image" %></a>
+      </li>
+    </li>
+  </ul>
+</div>
+</div>
 </nav>
-
-
-
-
-
-
