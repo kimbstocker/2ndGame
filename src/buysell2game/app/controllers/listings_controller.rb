@@ -32,6 +32,9 @@ class ListingsController < ApplicationController
         @listings = Listing.where(category_id: 5, listing_status: "listed")
       when "others"
         @listings = Listing.where(category_id: 6, listing_status: "listed")
+      else
+        flash[:alert] = "Unauthorised access"
+        redirect_to root_path
       end
     else
 
@@ -124,39 +127,39 @@ class ListingsController < ApplicationController
 
 
   private
-    def listing_params
-      params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
+  def listing_params
+    params.require(:listing).permit(:listing_name, :price, :category_id, :condition, :description, :picture, :shipping)
+  end
+
+  #change listing status once the form is submitted 
+  def update_listing_status
+    case params[:listing_status]
+    when "Create Listing"
+      @listing.update(listing_status: 2)
+    when "Update Listing"
+      @listing.update(listing_status: 2)
+    when "Save as draft"
+      @listing.update(listing_status: 1)
     end
 
-    #change listing status once the form is submitted 
-    def update_listing_status
-      case params[:listing_status]
-      when "Create Listing"
-        @listing.update(listing_status: 2)
-      when "Update Listing"
-        @listing.update(listing_status: 2)
-      when "Save as draft"
-        @listing.update(listing_status: 1)
-      end
-  
-    end
+  end
 
-    def authorize_user 
-      if @listing.user_id != current_user.id
-        flash[:alert] = "Unauthorised access"
-        redirect_to root_path
-      end 
+  def authorize_user 
+    if @listing.user_id != current_user.id
+      flash[:alert] = "Unauthorised access"
+      redirect_to root_path
     end 
+  end 
 
-    def set_listing
-      @listing = Listing.find(params[:id])
-    end
+  def set_listing
+    @listing = Listing.find(params[:id])
+  end
 
 
-    def set_form_vars
-      @categories = Category.all
-      @conditions = Listing.conditions.keys
-      @shipping_methods = Listing.shippings.keys
-    end 
+  def set_form_vars
+    @categories = Category.all
+    @conditions = Listing.conditions.keys
+    @shipping_methods = Listing.shippings.keys
+  end 
 
 end
