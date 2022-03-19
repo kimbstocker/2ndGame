@@ -1,14 +1,14 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhook]
+  before_action :set_order
   before_action :authorize_user
-  before_action :set_vars
 
   def success
   end
 
   def create_checkout_session
     total_price = 0
-
+    @items = @order.items.all
     @items.each do |item|
       #Below code ensures only unsold items are added to the total payment before sending to stripe
       total_price += item.listing.price
@@ -90,14 +90,12 @@ class PaymentsController < ApplicationController
 
   private
 
-  def set_vars
+  def set_order
     @order = Order.find_by(id: params[:id])
-    @items = @order.items.all
-
   end
 
+
   def authorize_user
-    @order = Order.find_by(id: params[:id])
     if @order && @order.user_id != current_user.id
       flash[:alert] = "Unauthorised access"
       redirect_to root_path
