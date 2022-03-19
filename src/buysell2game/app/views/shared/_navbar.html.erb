@@ -70,11 +70,7 @@
             <%end%>
 
               <li class="nav-item">
-              <%if user_signed_in?%>
                 <a class="nav-link" href="/listings/category/favourites"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
-              <%else%>
-                <a class="nav-link" href="#"><%= image_tag "fav.jpg", alt: "a heart shape", class: "nav-icon-image"%></a>
-              <%end%>
               </li>
               </li>
                 <a class="nav-link" href="/orders/show"><%= image_tag "cart.jpg", alt: "shopping cart", class: "nav-icon-image"%></a>

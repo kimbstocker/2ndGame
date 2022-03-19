@@ -33,8 +33,7 @@ class ListingsController < ApplicationController
       when "others"
         @listings = Listing.where(category_id: 6, listing_status: "listed")
       else
-        flash[:alert] = "Unauthorised access"
-        redirect_to root_path
+        render :file => "#{Rails.root}/public/404.html",  layout: false, status: :not_found
       end
     else
 
@@ -61,6 +60,8 @@ class ListingsController < ApplicationController
         user_favouties.each do |fav|
           @listings << fav.listing
         end
+      else
+        render :file => "#{Rails.root}/public/404.html",  layout: false, status: :not_found
       end
     end
 
