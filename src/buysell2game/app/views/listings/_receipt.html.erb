@@ -1,7 +1,6 @@
 <%= form_with model: @listing, local: true do |f| %>
   <div class='form-group mb-3'>
     <%= f.label :picture, class: "form-label" %>
-    <%# TODO allow multiple images, need to restyle show once changed %>
     <%= f.file_field :picture, accept: "image/png,image/jpg,image/jpeg", class: "form-select" %>
   </div>
   <div class='actions'>

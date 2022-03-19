@@ -1,8 +1,7 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhook]
   before_action :authorize_user
-  before_action :set_order
-  before_action :set_items, only: [:create_checkout_session]
+  before_action :set_vars
 
   def success
   end
@@ -91,12 +90,10 @@ class PaymentsController < ApplicationController
 
   private
 
-  def set_order
+  def set_vars
     @order = Order.find_by(id: params[:id])
-  end
-
-  def set_items
     @items = @order.items.all
+
   end
 
   def authorize_user

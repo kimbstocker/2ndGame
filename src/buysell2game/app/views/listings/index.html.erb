@@ -1,11 +1,17 @@
-<% if @listings %>
+
+<div>
   <% if user_signed_in? && params[:id] == "#{current_user.id}" %>
     <h3 class="display-4 text-center">Your listed board games</h3>
-  <% else %>
+  <% else%>
     <h3 class="display-4 text-center"><%= "#{params[:id]}".capitalize + " Board Games" %></h3>
   <% end %>
-  <section class="container d-flex justify-content-center">
-    <div class="d-flex flex-wrap justify-content-center">
+</div>
+
+<section class="container d-flex justify-content-center">
+
+  <div class="d-flex flex-wrap justify-content-center">
+
+    <% if !@listings.empty? %>
       <%# Create ecommerce cards for each listing in the category (filtered by the controller method index) %>
       <% @listings.each do |listing| %>
         <div class="d-flex m-4">
@@ -51,8 +57,12 @@
           </div>
         </div>
       <% end %>
-    </div>
-  </section>
-<% else %>
-  <%= link_to "Home", root_path %>
-<% end %>
+  </div>
+
+    <% else %>
+      <div>
+      <h4> The list you're trying to access is empty </h4>
+      </div>
+    <% end %>
+
+</section>
