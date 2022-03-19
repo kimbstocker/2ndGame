@@ -7,6 +7,7 @@
         <th scope="col">Order status</th>
         <th scope="col">Total</th>
         <th scope="col">Updated at</th>
+        <th scope="col">Payment receipt</th>
 
       </tr>
     </thead>
@@ -18,6 +19,10 @@
         <td><%= format_text(order.order_status)%></td>
         <td><%= order.total%></td>
         <td><%= order.updated_at%></td>
+
+        <% if order.payment %>
+          <td><%= link_to "View receipt", order.payment.receipt_url, class: "link-success" %></td>
+        <% end %>
         </tr>
 
         <%end%>
