@@ -5,55 +5,51 @@ class PaymentsController < ApplicationController
     before_action :set_items, only: [:create_checkout_session]
 
     def success
-
+        
     end
 
     def create_checkout_session
 
 
-            total_price = 0
+        total_price = 0
 
-            @items.each do |item|
-            #Below code ensures only unsold items are added to the total payment before sending to stripe
-                total_price += item.listing.price
+        @items.each do |item|
+        #Below code ensures only unsold items are added to the total payment before sending to stripe
+            total_price += item.listing.price
 
-            end
+        end
 
-            if total_price == 0 || total_price != @order.total
-                flash[:alert] = "One or more item is no longer available. Review your order"
-                @order.update(total: total_price)
-                redirect_to order_path(@order.id)
-            else
-                total_cents = (total_price*100).to_i
-                session = Stripe::Checkout::Session.create(
-                    payment_method_types: ['card'],
-                    customer_email:current_user && current_user.email, 
-                    line_items: [
-                        {
-                        name: "Pay 2ndGame Corp",
-                        amount: total_cents, 
-                        currency: 'aud',
-                        quantity: 1
-                        }
-                    ],
-                    #send metadata to Stripe and stripe send it back once payment is sucessful
-                    payment_intent_data: {
+        if total_price == 0 || total_price != @order.total
+            flash[:alert] = "One or more item is no longer available. Review your order"
+            @order.update(total: total_price)
+            redirect_to order_path(@order.id)
+        else
+            total_cents = (total_price*100).to_i
+            session = Stripe::Checkout::Session.create(
+                payment_method_types: ['card'],
+                customer_email:current_user && current_user.email, 
+                line_items: [
+                    {
+                    name: "Pay 2ndGame Corp",
+                    amount: total_cents, 
+                    currency: 'aud',
+                    quantity: 1
+                    }
+                ],
+                #send metadata to Stripe and stripe send it back once payment is sucessful
+                payment_intent_data: {
                     metadata: {
                         user_id: current_user && current_user.id, 
                         order_id: @order.id
                     }
-                    },
-            
-                    success_url: "#{root_url}payments/success/#{@order.id}",
-                    cancel_url: root_url
-                )
-            
-                @session_id = session.id
-            end
+                },
         
-
-          
-
+                success_url: "#{root_url}payments/success/#{@order.id}",
+                cancel_url: root_url
+            )
+        
+            @session_id = session.id
+        end
     end
 
     

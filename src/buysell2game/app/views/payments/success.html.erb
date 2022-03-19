@@ -1,4 +1,6 @@
-<h2>Congratulations!!! your order has been placed!!!</h2>
-<p>Your order number is #<%=@order.id%></p>
-<%=link_to "View Receipt", @order.payment.receipt_url%>
+<h2>Congratulations! Your order has been placed.</h2>
+<p>Your order number is #<%= @order.id %></p>
+<% if @order.payment %>
+  <%= link_to "View Receipt", @order.payment.receipt_url %>
+<% end %>
 
