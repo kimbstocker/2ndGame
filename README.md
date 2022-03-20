@@ -41,6 +41,21 @@ There is a gap in the market for a marketplace for second hand board games. Furt
 
 ## Screenshots
 
+![Site 1](docs/SiteScreenshots/All_listings.png)
+![Site 2](docs/SiteScreenshots/Create_listing.png)
+![Site 3](docs/SiteScreenshots/Edit_listing.png)
+![Site 4](docs/SiteScreenshots/Favourites.png)
+![Site 5](docs/SiteScreenshots/Home.png)
+![Site 6](docs/SiteScreenshots/Order_history.png)
+![Site 7](docs/SiteScreenshots/Order_summary.png)
+![Site 8](docs/SiteScreenshots/Payment_success_page.png)
+![Site 9](docs/SiteScreenshots/Stripe_session.png)
+![Site 10](docs/SiteScreenshots/Update_receipt.png)
+![Site 11](docs/SiteScreenshots/User_listings.png)
+![Site 12](docs/SiteScreenshots/View_listing_archived_status.png)
+![Site 13](docs/SiteScreenshots/View_listing_at_sold_status.png)
+![Site 14](docs/SiteScreenshots/View_listing_listed_draft_status.png)
+
 
 ## Target audience
 
@@ -75,7 +90,7 @@ The target audience of this market place is mainly students. However, it can be 
 
 # R14. An ERD for your app
 
-![ERD](docs/KimStocker_T2A2_ERD "ERD")
+![ERD](docs/KimStocker_T2A2_ERD.pdf "ERD")
 
 # R15. Explain the different high-level components (abstractions) in your app
 
@@ -131,7 +146,16 @@ The application relations also include a join table called “favourites” that
 
 Trello board is used to track the progress of the project. With an Agile approach, a Kanban board with Backlog/User Stories, Design/Research, To do, Doing, Code Review, Testing and Done columns are used to allocate the tasks. Tasks are divided into different major features of the app. Those tasks are then broken down into checklist items. Based on User stories, MVP features are identified and prioritised. Features that are “good to have” are allocated in the Backlog and will be moved up if there is enough time to deliver. Please see Trello screenshots for details. 
 
-![Trello](docs/KimStocker_DatabaseSchemaDiagram.pdf)
+![Trello 1](docs/TrelloScreenshots/Trello-01.png)
+![Trello 2](docs/TrelloScreenshots/Trello-02.png)
+![Trello 3](docs/TrelloScreenshots/Trello-03.png)
+![Trello 4](docs/TrelloScreenshots/Trello-04.png)
+![Trello 5](docs/TrelloScreenshots/Trello-05.png)
+![Trello 6](docs/TrelloScreenshots/Trello-06.png)
+![Trello 7](docs/TrelloScreenshots/Trello-07.png)
+![Trello 8](docs/TrelloScreenshots/Trello-08.png)
+![Trello 9](docs/TrelloScreenshots/Trello-09.png)
+![Trello 10](docs/TrelloScreenshots/Trello-10.png)
 
 
 # References
