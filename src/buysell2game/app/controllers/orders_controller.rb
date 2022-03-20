@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
       flash[:notice] = "Your cart is empty!"
       redirect_to root_path
     else
+      # Eager load listing details as those details will be used to display listing line items in the Order page.
       @items = @order.items.all.eager_load(:listing)
     end
   end
