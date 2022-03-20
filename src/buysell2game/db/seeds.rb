@@ -32,7 +32,7 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
 		Listing.create!(
 			listing_name: Faker::Game.title, 
 			condition: rand(1..5),
-			price: rand(10.25..30.95),
+			price: rand(1000..3000),
 			listing_status: rand(1..4),
 			description: Faker::Movies::Ghostbusters.quote,
 			user_id: rand(1..5), 
