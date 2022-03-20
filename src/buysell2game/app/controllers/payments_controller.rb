@@ -19,14 +19,13 @@ class PaymentsController < ApplicationController
       @order.update(total: total_price)
       redirect_to order_path(@order.id)
     else
-      total_cents = (total_price * 100).to_i
       session = Stripe::Checkout::Session.create(
         payment_method_types: ["card"],
         customer_email: current_user && current_user.email,
         line_items: [
           {
             name: "Pay 2ndGame Corp",
-            amount: total_cents,
+            amount: total_price,
             currency: "aud",
             quantity: 1,
           },
