@@ -17,7 +17,7 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
         end
     end
 
-	# Generate 5 users
+	# Generate 5 usersif the listings table is empty
 	if User.count == 0
 		(1..5).each do |id|
 			User.create!(
@@ -29,7 +29,7 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
 	end
 
 
-	# Generate 15 listings
+	# Generate 15 listings if the listings table is empty
 	if Listing.count == 0
 		(1..15).each do |id|
 			Listing.create!(
