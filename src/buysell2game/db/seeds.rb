@@ -18,25 +18,29 @@ categories = ["family", "strategy", "classic", "puzzles", "fantasy", "others"]
     end
 
 	# Generate 5 users
-	(1..5).each do |id|
-		User.create!(
-			email: Faker::Internet.email,
-			password: "123456", 
-			password_confirmation: "123456",
-		)
+	if User.count == 0
+		(1..5).each do |id|
+			User.create!(
+				email: Faker::Internet.email,
+				password: "123456", 
+				password_confirmation: "123456",
+			)
+		end
 	end
 
 
 	# Generate 15 listings
-	(1..15).each do |id|
-		Listing.create!(
-			listing_name: Faker::Game.title, 
-			condition: rand(1..5),
-			price: rand(10..30),
-			listing_status: rand(1..4),
-			description: Faker::Movies::Ghostbusters.quote,
-			user_id: rand(1..5), 
-			category_id: rand(1..6),
-			shipping: rand(1..3)
-		)
+	if Listing.count == 0
+		(1..15).each do |id|
+			Listing.create!(
+				listing_name: Faker::Game.title, 
+				condition: rand(1..5),
+				price: rand(10..30),
+				listing_status: rand(1..4),
+				description: Faker::Movies::Ghostbusters.quote,
+				user_id: rand(1..5), 
+				category_id: rand(1..6),
+				shipping: rand(1..3)
+			)
+		end
 	end
