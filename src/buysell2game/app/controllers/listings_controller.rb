@@ -105,7 +105,7 @@ class ListingsController < ApplicationController
     update_listing_status
 
     if @listing.save
-      redirect_to @listing, notice: "Listing successfully updated"
+      redirect_to @listing, notice: "Listing successfully updated!"
     else
       set_form_vars
       render "edit", notice: "An error has occurred, please try again"
