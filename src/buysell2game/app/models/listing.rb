@@ -31,18 +31,28 @@ class Listing < ApplicationRecord
   end
 
   def censor_profanities
-    # self.listing_name = ProfanityFilter.new
-    # self.description = ProfanityFilter.new
-    # if self.listing_name.profane?
-    #   flash[:alert] = "Please do not use profanities"
-    # end
 
-    # symbols = ["#", "$", "*", "@", "!", "%"]
-    # profanities = ["shit", ]
-    # self.title = self.title.gsub(/covid/i, "pfizer")
-    # self.description = self.title.gsub(/covid/i, "pfizer")
-    # sj.censor(self.listing_name)
-    # sj.censor(self.description)
+    profanities = ["shit", "fuck", "cunt", "sex"]
+
+    def replace_word(bad_word)
+      letters = bad_word.split("")
+      word_length = letters.length
+      sub_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
+      numbers_of_sub_chars = word_length - 2
+      sub_word = []
+      numbers_of_sub_chars.times { sub_word << sub_chars.sample }
+      sub_word.unshift(letters[0])
+      sub_word.append(letters[-1])
+      @text = sub_word.join
+    end
+
+    name_array = self.listing_name.split(" ")
+    profanities.each do |prof|
+      word = prof.downcase
+      replace_word(word)
+      self.listing_name = self.listing_name.gsub(word, @text)
+      self.description = self.description.gsub(word, @text)
+    end
 
   end
   

@@ -95,6 +95,7 @@ class ListingsController < ApplicationController
     if @listing.listing_status == "archived"
       flash[:alert] = "This listing details can no longer be changed"
     end
+
   end
 
   def update
