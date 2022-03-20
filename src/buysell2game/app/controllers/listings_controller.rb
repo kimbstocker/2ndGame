@@ -35,19 +35,19 @@ class ListingsController < ApplicationController
     else
       case params[:id]
       when "all"
-        @listings = Listing.all.where(listing_status: "listed") - current_user.listings
+        @listings = Listing.all.where(listing_status: "listed").where.not(user_id: current_user.id)
       when "family"
-        @listings = Listing.where(category_id: 1, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 1, listing_status: "listed").where.not(user_id: current_user.id)
       when "strategy"
-        @listings = Listing.where(category_id: 2, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 2, listing_status: "listed").where.not(user_id: current_user.id)
       when "classic"
-        @listings = Listing.where(category_id: 3, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 3, listing_status: "listed").where.not(user_id: current_user.id)
       when "puzzles"
-        @listings = Listing.where(category_id: 4, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 4, listing_status: "listed").where.not(user_id: current_user.id)
       when "fantasy"
-        @listings = Listing.where(category_id: 5, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 5, listing_status: "listed").where.not(user_id: current_user.id)
       when "others"
-        @listings = Listing.where(category_id: 6, listing_status: "listed") - current_user.listings
+        @listings = Listing.where(category_id: 6, listing_status: "listed").where.not(user_id: current_user.id)
       when "#{current_user.id}"
         @listings = current_user.listings
       when "favourites"

@@ -4,11 +4,11 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:index, :show, :create]
 
   def index
-    if !current_user.orders
-      flash[:notice] = "You have no order yet!"
+    if current_user.orders.empty?
+      flash[:alert] = "You have no order yet!"
       redirect_back(fallback_location: root_path)
     else
-      @orders = current_user.orders - current_user.orders.where(order_status: "pending")
+      @orders = current_user.orders.where.not(order_status: "pending")
     end
   end
 
@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
       flash[:notice] = "Your cart is empty!"
       redirect_to root_path
     else
-      @items = @order.items.all
+      @items = @order.items.all.eager_load(:listing)
     end
   end
 

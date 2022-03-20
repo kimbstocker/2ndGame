@@ -21,7 +21,7 @@
         <% total += item.listing.price %>
       <% end %>
     </table>
-    <h3>Sub total: <%= number_to_currency(total) %></h3>
+    <h3>Sub total: <%= format_price(total) %></h3>
     <%= button_to "Proceed to checkout", create_checkout_session_path,
       remote: true,
       method: :post,
