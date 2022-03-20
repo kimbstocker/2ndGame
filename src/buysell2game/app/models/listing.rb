@@ -13,6 +13,7 @@ class Listing < ApplicationRecord
 
   has_many :favourites, dependent: :destroy
   has_many :users, through: :favourite
+  before_validation :convert_price_to_cents, if: :price_changed?
 
   # Data validations, even the form include :require => true, this create an extra layer to ensure data received is valid
   validates :listing_name, :condition, :price, :description, :category_id, :shipping, presence: true
@@ -21,7 +22,6 @@ class Listing < ApplicationRecord
   # Data sanitsations
   before_save :remove_whitespace
   before_save :censor_profanities
-  before_validation :convert_price_to_cents, if: :price_changed?
 
   private 
   

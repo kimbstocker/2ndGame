@@ -98,9 +98,9 @@ class ListingsController < ApplicationController
   end
 
   def update
-    if @listing_params
-      @listing.update(listing_params)
-    end
+    
+    @listing.update(listing_params)
+    
     update_listing_status
 
     if @listing.save
