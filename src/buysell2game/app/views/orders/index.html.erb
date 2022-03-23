@@ -15,7 +15,7 @@
         <tr>
           <td><%= order.id %></td>
           <td><%= format_text(order.order_status) %></td>
-          <td><%= order.total %></td>
+          <td><%= format_price(order.total) %></td>
           <td><%= order.updated_at %></td>
           <% if order.payment %>
             <td><%= link_to "View receipt", order.payment.receipt_url, class: "link-success" %></td>
